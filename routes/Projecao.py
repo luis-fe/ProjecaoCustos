@@ -69,3 +69,21 @@ def get_categorias():
             end_dict[column_name] = row[column_name]
         end_data.append(end_dict)
     return jsonify(end_data)
+
+@Projecao_routes.route('/api/Grupos', methods=['GET'])
+@token_required
+def get_Grupos():
+    # Obtém os dados do corpo da requisição (JSON)
+
+    Endereco_det = Service.ProjecaoService.Grupos()
+    Endereco_det = pd.DataFrame(Endereco_det)
+    # Obtém os nomes das colunas
+    column_names = Endereco_det.columns
+    # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes
+    end_data = []
+    for index, row in Endereco_det.iterrows():
+        end_dict = {}
+        for column_name in column_names:
+            end_dict[column_name] = row[column_name]
+        end_data.append(end_dict)
+    return jsonify(end_data)

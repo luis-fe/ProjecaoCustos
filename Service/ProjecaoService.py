@@ -22,3 +22,10 @@ def Categorias():
     conn.close()
 
     return consulta
+
+def Grupos():
+    conn = ConexaoPostgreMPL.conexao()
+    consulta = pd.read_sql('select * from "Reposicao"."ProjCustos".grupos c ',conn)
+    conn.close()
+
+    return consulta
