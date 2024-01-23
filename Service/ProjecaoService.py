@@ -8,3 +8,10 @@ def ObterProjecoes():
     conn.close()
 
     return consulta
+
+def Marcas():
+    conn = ConexaoPostgreMPL.conexao()
+    consulta = pd.read_sql('select distinct marca  from "Reposicao"."ProjCustos".projecao p ',conn)
+    conn.close()
+
+    return consulta
