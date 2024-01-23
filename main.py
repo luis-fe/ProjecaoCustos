@@ -5,7 +5,7 @@ from routes import routes_blueprint
 from functools import wraps
 
 app = Flask(__name__)
-port = int(os.environ.get('PORT', 8001))
+port = int(os.environ.get('PORT', 8080))
 app.register_blueprint(routes_blueprint)
 
 CORS(app)
