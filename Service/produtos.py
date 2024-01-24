@@ -53,7 +53,7 @@ def ProdutosCsw(projecao, empresa):
                                      axis=1)
     produtos['categoria'] = produtos.apply(lambda row: Categoria('MEIA', row['descricao'], 'MEIA', row['categoria']), axis=1)
 
-    produtos['Projecao'] = projecao
+    produtos['projecao'] = projecao
 
 
     return produtos
