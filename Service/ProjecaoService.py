@@ -14,7 +14,7 @@ def Marcas():
     consulta = pd.read_sql('select distinct marca  from "Reposicao"."ProjCustos".projecao p ',conn)
     conn.close()
 
-    return
+    return consulta
 
 def Categorias():
     conn = ConexaoPostgreMPL.conexao()
