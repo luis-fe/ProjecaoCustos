@@ -98,6 +98,9 @@ def ObtendoMarca(coditempai):
 def ObetendoEmpresa(coditempai):
     if coditempai[1:2] == '1':
         return 'MATRIZ'
+    elif coditempai[1:2] == '2':
+        return 'MATRIZ'
+
     else:
         return 'FILIAL'
 
