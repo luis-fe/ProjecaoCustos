@@ -18,16 +18,29 @@ def ProdutosCsw(projecao, empresa):
     " and e.codEngenharia like '0%' "
         print(f'alto verao + {ano}')
 
+        projecao = 'SELECT  t.codProduto as codengenharia  FROM CusTex_Tpc.CProduto t ' \
+                   'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
+                   "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%ALTO VER%' and capa.codempresa= 1"
+
     elif 'VER' in projecao:
         produtos = 'SELECT e.codEngenharia as codengenharia, e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " + ano + " and e.status in (2,3) " \
                                                                                                            " and e.codEngenharia like '0%' "
+
+        projecao = 'SELECT  t.codProduto as codengenharia FROM CusTex_Tpc.CProduto t ' \
+                   'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
+                   "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%VER%' and capa.codempresa= 1"
+
     else:
         produtos = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like '%INVE%' AND  d.nomeColecao like " + ano + " and e.status in (2,3)"\
     " and e.codEngenharia like '0%' "
+
+        projecao = 'SELECT  t.codProduto as codengenharia  FROM CusTex_Tpc.CProduto t ' \
+                   'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
+                   "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%INVE%' and capa.codempresa= 1"
 
     basico = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
@@ -41,6 +54,10 @@ def ProdutosCsw(projecao, empresa):
     basico['origem'] = 'Continuadas'
 
     produtos = pd.concat([produtos, basico])
+    projecao = pd.read_sql(projecao, conn)
+    projecao['situacaocusto'] = 'Projetado'
+    produtos = pd.merge(produtos, projecao , on='codengenharia', how='left')
+
     conn.close()
     produtos['categoria'] = '-'
     produtos['categoria'] = produtos.apply(lambda row: Categoria('BLAZER', row['descricao'], 'JAQUETA', row['categoria']), axis=1)
@@ -130,3 +147,5 @@ def ObeterProdutosOficial(projecao, empresa):
     produtos.fillna('-', inplace=True)
 
     return produtos
+
+
