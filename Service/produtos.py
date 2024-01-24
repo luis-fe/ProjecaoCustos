@@ -145,6 +145,7 @@ def ObeterProdutosOficial(projecao, empresa):
     produtosPostgre = pd.read_sql(produtosPostgre,conn,params=(projecao,))
     conn.close()
 
+    produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
     produtosPostgre.fillna('-', inplace=True)
 
     return produtosPostgre
