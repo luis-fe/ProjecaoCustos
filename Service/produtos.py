@@ -60,6 +60,20 @@ def ProdutosCsw(projecao, empresa):
 
 
 def IncrementarProdutos(projecao, empresa):
+
+    delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
+             ' where projecao = %s'
+
+    conn = ConexaoPostgreMPL.conexao()
+    cursor = conn.cursor()
+    cursor.execute(delete,(projecao,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+
+
     produtos = ProdutosCsw(projecao, empresa)
     ConexaoPostgreMPL.Funcao_Inserir(produtos,produtos.size,'produtos','append')
 
