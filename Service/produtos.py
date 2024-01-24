@@ -124,8 +124,8 @@ def IncrementarProdutos(projecao, empresa):
 
 
 
-    produtos = ProdutosCsw(projecao, empresa)
-    ConexaoPostgreMPL.Funcao_Inserir(produtos,produtos.size,'produtos','append')
+    ObeterProdutos = ProdutosCsw(projecao, empresa)
+    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos,ObeterProdutos.size,'produtos','append')
 
 
 
