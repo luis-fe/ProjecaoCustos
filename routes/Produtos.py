@@ -22,7 +22,7 @@ def get_Produtos():
     data = request.get_json()
     projecao = data.get('projecao')
     empresa = data.get('empresa', '-')
-    Service.produtos.IncrementarProdutos(projecao, empresa)
+    #Service.produtos.IncrementarProdutos(projecao, empresa)
     Endereco_det = Service.produtos.ObeterProdutosOficial(projecao, empresa)
     Endereco_det = pd.DataFrame(Endereco_det)
     # Obtém os nomes das colunas
