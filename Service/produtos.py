@@ -18,7 +18,7 @@ def ProdutosCsw(projecao, empresa):
     " and e.codEngenharia like '0%' "
 
 
-        projecaoCSW = 'SELECT  t.codProduto as codengenharia  FROM CusTex_Tpc.CProduto t ' \
+        projecaoCSW = 'SELECT  t.codProduto as codengenharia, capa.dataCalculo as dataprojecao  FROM CusTex_Tpc.CProduto t ' \
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%ALTO VER%' and capa.codempresa= 1"
 
@@ -28,7 +28,7 @@ def ProdutosCsw(projecao, empresa):
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " + ano + " and e.status in (2,3) " \
                                                                                                            " and e.codEngenharia like '0%' "
 
-        projecaoCSW = 'SELECT  t.codProduto as codengenharia FROM CusTex_Tpc.CProduto t ' \
+        projecaoCSW = 'SELECT  t.codProduto as codengenharia, capa.dataCalculo as dataprojecao  FROM CusTex_Tpc.CProduto t ' \
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%VER%' and capa.codempresa= 1"
 
@@ -38,7 +38,7 @@ def ProdutosCsw(projecao, empresa):
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like '%INVE%' AND  d.nomeColecao like " + ano + " and e.status in (2,3)"\
     " and e.codEngenharia like '0%' "
 
-        projecaoCSW = 'SELECT  t.codProduto as codengenharia  FROM CusTex_Tpc.CProduto t ' \
+        projecaoCSW = 'SELECT  t.codProduto as codengenharia, capa.dataCalculo as dataprojecao   FROM CusTex_Tpc.CProduto t ' \
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%INVE%' and capa.codempresa= 1"
 
