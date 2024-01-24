@@ -137,7 +137,7 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
         return categoria
 
 def ObeterProdutosOficial(projecao, empresa):
-    IncrementarProdutos(projecao, empresa)
+
     conn = ConexaoPostgreMPL.conexao()
     produtosPostgre = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                'where projecao = %s '
