@@ -167,7 +167,7 @@ def ObeterProdutosOficial(projecao, empresa):
         produtosPostgre.fillna('-', inplace=True)
         print(p)
         contador = contador + 1
-        if contador == 0:
+        if contador == 1:
             produtosPostgreX = produtosPostgre
         else:
             produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
