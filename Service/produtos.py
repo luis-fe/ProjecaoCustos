@@ -154,15 +154,24 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
 
 def ObeterProdutosOficial(projecao, empresa):
 
-    conn = ConexaoPostgreMPL.conexao()
-    produtosPostgre = 'select * from "Reposicao"."ProjCustos".produtos p ' \
-               'where projecao = %s '
+    for p in projecao:
 
-    produtosPostgre = pd.read_sql(produtosPostgre,conn,params=(projecao,))
-    conn.close()
+        conn = ConexaoPostgreMPL.conexao()
+        produtosPostgre = 'select * from "Reposicao"."ProjCustos".produtos p ' \
+                   'where projecao = %s '
 
-    produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
-    produtosPostgre.fillna('-', inplace=True)
+        produtosPostgre = pd.read_sql(produtosPostgre,conn,params=(projecao,))
+        conn.close()
+
+        produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
+        produtosPostgre.fillna('-', inplace=True)
+
+        if p == 0:
+            produtosPostgreX = produtosPostgre
+        else:
+            produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
+
+
 
     return produtosPostgre
 
