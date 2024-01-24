@@ -36,7 +36,9 @@ def ProdutosCsw(projecao, empresa):
 
 
     produtos = pd.read_sql(produtos,conn)
+    produtos['origem'] = 'Lancamento'
     basico = pd.read_sql(basico,conn)
+    basico['origem'] = 'Continuadas'
 
     produtos = pd.concat([produtos, basico])
     conn.close()
