@@ -139,14 +139,14 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
 def ObeterProdutosOficial(projecao, empresa):
     IncrementarProdutos(projecao, empresa)
     conn = ConexaoPostgreMPL.conexao()
-    produtos = 'select * from "Reposicao"."ProjCustos".produtos p ' \
+    produtosPostgre = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                'where projecao = %s '
 
-    produtos = pd.read_sql(produtos,conn,params=(projecao,))
+    produtosPostgre = pd.read_sql(produtosPostgre,conn,params=(projecao,))
     conn.close()
 
-    produtos.fillna('-', inplace=True)
+    produtosPostgre.fillna('-', inplace=True)
 
-    return produtos
+    return produtosPostgre
 
 
