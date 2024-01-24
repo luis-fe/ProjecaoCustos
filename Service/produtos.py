@@ -74,6 +74,7 @@ def ProdutosCsw(projecao, empresa):
 
     produtos_['projecao'] = projecao
     produtos_['marca'] = produtos_.apply(lambda  row: ObtendoMarca(row['codengenharia']),axis=1)
+    produtos_['empresa'] = produtos_.apply(lambda row: ObetendoEmpresa(row['codengenharia']), axis=1)
     produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
     produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
 
@@ -93,6 +94,13 @@ def ObtendoMarca(coditempai):
         return 'PACO'
     else:
         return '-'
+
+def ObetendoEmpresa(coditempai):
+    if coditempai[1:2] == '1':
+        return 'MATRIZ'
+    else:
+        return 'FILIAL'
+
 def obterGrupo(descricao):
     if 'PACK' in descricao:
         return 'ESSENCIAL ALTO GIRO'
