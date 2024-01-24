@@ -165,7 +165,7 @@ def ObeterProdutosOficial(projecao, empresa):
 
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
-
+        print(p)
         if p == 0:
             produtosPostgreX = produtosPostgre
         else:
