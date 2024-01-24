@@ -21,7 +21,7 @@ def get_Produtos():
     # Obtém os dados do corpo da requisição (JSON)
     data = request.get_json()
     projecao = data.get('projecao')
-    empresa = dat.get('empresa', '-')
+    empresa = data.get('empresa', '-')
     Service.produtos.IncrementarProdutos(projecao, empresa)
     Endereco_det = Service.produtos.ObeterProdutosOficial(projecao, empresa)
     Endereco_det = pd.DataFrame(Endereco_det)
