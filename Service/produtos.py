@@ -12,24 +12,24 @@ def ProdutosCsw(projecao, empresa):
 
     if 'ALT' in projecao:
 
-        produtos = 'SELECT e.codEngenharia , e.descricao  FROM tcp.Engenharia e ' \
+        produtos = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
     'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
     "WHERE e.codEmpresa = 1 and d.nomeColecao like '%ALTO VER%' AND  d.nomeColecao like " +ano+ " and e.status in (2,3) " \
     " and e.codEngenharia like '0%' "
         print(f'alto verao + {ano}')
 
     elif 'VER' in projecao:
-        produtos = 'SELECT e.codEngenharia , e.descricao  FROM tcp.Engenharia e ' \
+        produtos = 'SELECT e.codEngenharia as codengenharia, e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " + ano + " and e.status in (2,3) " \
                                                                                                            " and e.codEngenharia like '0%' "
     else:
-        produtos = 'SELECT e.codEngenharia , e.descricao  FROM tcp.Engenharia e ' \
+        produtos = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like '%INVE%' AND  d.nomeColecao like " + ano + " and e.status in (2,3)"\
     " and e.codEngenharia like '0%' "
 
-    basico = 'SELECT e.codEngenharia , e.descricao  FROM tcp.Engenharia e ' \
+    basico = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like '%BASIC%' AND  d.nomeColecao like " + ano + " and e.status in (2,3)"\
     " and e.codEngenharia like '0%' AND e.codEngenharia like '%-0'  "
