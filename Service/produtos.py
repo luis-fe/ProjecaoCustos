@@ -126,4 +126,7 @@ def ObeterProdutosOficial(projecao, empresa):
 
     produtos = pd.read_sql(produtos,conn,params=(projecao,))
     conn.close()
+
+    produtos.fillna('-', inplace=True)
+
     return produtos
