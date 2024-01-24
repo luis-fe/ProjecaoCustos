@@ -153,7 +153,7 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
         return categoria
 
 def ObeterProdutosOficial(projecao, empresa):
-
+    contador = 0
     for p in projecao:
 
         conn = ConexaoPostgreMPL.conexao()
@@ -166,7 +166,8 @@ def ObeterProdutosOficial(projecao, empresa):
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
         print(p)
-        if p == 0:
+        contador = contador + 1
+        if contador == 0:
             produtosPostgreX = produtosPostgre
         else:
             produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
