@@ -16,7 +16,7 @@ def ProdutosCsw(projecao, empresa):
     'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
     "WHERE e.codEmpresa = 1 and d.nomeColecao like '%ALTO VER%' AND  d.nomeColecao like " +ano+ " and e.status in (2,3) " \
     " and e.codEngenharia like '0%' "
-        print(f'alto verao + {ano}')
+
 
         projecaoCSW = 'SELECT  t.codProduto as codengenharia  FROM CusTex_Tpc.CProduto t ' \
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
@@ -48,36 +48,36 @@ def ProdutosCsw(projecao, empresa):
     " and e.codEngenharia like '0%' AND e.codEngenharia like '%-0'  "
 
 
-    produtos = pd.read_sql(produtos,conn)
-    produtos['origem'] = 'Lancamento'
+    produtos_ = pd.read_sql(produtos,conn)
+    produtos_['origem'] = 'Lancamento'
     basico = pd.read_sql(basico,conn)
     basico['origem'] = 'Continuadas'
 
-    produtos = pd.concat([produtos, basico])
+    produtos_ = pd.concat([produtos_, basico])
     projecaoCSW = pd.read_sql(projecaoCSW, conn)
     projecaoCSW['situacaocusto'] = 'Projetado'
-    produtos = pd.merge(produtos, projecaoCSW , on='codengenharia', how='left')
+    produtos_ = pd.merge(produtos_, projecaoCSW , on='codengenharia', how='left')
 
     conn.close()
-    produtos['categoria'] = '-'
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('BLAZER', row['descricao'], 'JAQUETA', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('TSHIRT', row['descricao'], 'CAMISETA', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('BATA', row['descricao'], 'CAMISA', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('CAMISA', row['descricao'], 'CAMISA', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('POLO', row['descricao'], 'POLO', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('CALCA JEANS', row['descricao'], 'CALCA JEANS', row['categoria']), axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('SHORT', row['descricao'], 'BOARDSHORT', row['categoria']),
+    produtos_['categoria'] = '-'
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('BLAZER', row['descricao'], 'JAQUETA', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('TSHIRT', row['descricao'], 'CAMISETA', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('BATA', row['descricao'], 'CAMISA', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('CAMISA', row['descricao'], 'CAMISA', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('POLO', row['descricao'], 'POLO', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('CALCA JEANS', row['descricao'], 'CALCA JEANS', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('SHORT', row['descricao'], 'BOARDSHORT', row['categoria']),
                                      axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('CARTEIRA', row['descricao'], 'CARTEIRA', row['categoria']),
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('CARTEIRA', row['descricao'], 'CARTEIRA', row['categoria']),
                                      axis=1)
-    produtos['categoria'] = produtos.apply(lambda row: Categoria('MEIA', row['descricao'], 'MEIA', row['categoria']), axis=1)
+    produtos_['categoria'] = produtos_.apply(lambda row: Categoria('MEIA', row['descricao'], 'MEIA', row['categoria']), axis=1)
 
-    produtos['projecao'] = projecao
-    produtos['marca'] = produtos.apply(lambda  row: ObtendoMarca(row['codengenharia']),axis=1)
-    produtos['grupo'] = produtos.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
-    produtos['estrategia'] = produtos.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
+    produtos_['projecao'] = projecao
+    produtos_['marca'] = produtos_.apply(lambda  row: ObtendoMarca(row['codengenharia']),axis=1)
+    produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
+    produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
 
-    return produtos
+    return produtos_
 def ObtendoMarca(coditempai):
     if coditempai[1:4] == '102':
         return 'M.POLLO'
