@@ -56,6 +56,7 @@ def ProdutosCsw(projecao, empresa):
     produtos['projecao'] = projecao
     produtos['marca'] = produtos.apply(lambda  row: ObtendoMarca(row['codengenharia']),axis=1)
     produtos['grupo'] = produtos.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
+    produtos['estrategia'] = produtos.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
 
     return produtos
 def ObtendoMarca(coditempai):
