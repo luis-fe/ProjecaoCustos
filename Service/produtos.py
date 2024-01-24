@@ -58,17 +58,17 @@ def ProdutosCsw(projecao, empresa):
 
     return produtos
 def ObtendoMarca(coditempai):
-    if coditempai[1:3] == '102':
+    if coditempai[1:4] == '102':
         return 'M.POLLO'
-    elif coditempai[1:3] == '202':
+    elif coditempai[1:4] == '202':
         return 'M.POLLO'
-    elif coditempai[1:3] == '302':
+    elif coditempai[1:4] == '302':
         return 'M.POLLO'
-    elif coditempai[1:3] == '104':
+    elif coditempai[1:4] == '104':
         return 'PACO'
-    elif coditempai[1:3] == '204':
+    elif coditempai[1:4] == '204':
         return 'PACO'
-    elif coditempai[1:3] == '304':
+    elif coditempai[1:4] == '304':
         return 'PACO'
     else:
         return '-'
