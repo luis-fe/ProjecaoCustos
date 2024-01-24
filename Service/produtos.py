@@ -81,6 +81,14 @@ def obterGrupo(descricao):
     else:
         return '-'
 
+def obterEstrategia(descricao):
+    if 'PACK' in descricao:
+        return 'PACK'
+    elif ' CB' in descricao:
+        return 'COMBO'
+    else:
+        return '-'
+
 def IncrementarProdutos(projecao, empresa):
 
     delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
