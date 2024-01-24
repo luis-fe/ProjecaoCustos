@@ -20,7 +20,7 @@ def token_required(f): # TOKEN FIXO PARA ACESSO AO CONTEUDO
 def get_Produtos():
     # Obtém os dados do corpo da requisição (JSON)
     projecao = request.args.get('projecao')
-    empresa = request.args.get('empresa', '1')
+    empresa = request.args.get('empresa', '-')
     Service.produtos.IncrementarProdutos(projecao, empresa)
     Endereco_det = Service.produtos.ObeterProdutosOficial(projecao, empresa)
     Endereco_det = pd.DataFrame(Endereco_det)

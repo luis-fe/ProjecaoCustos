@@ -78,6 +78,11 @@ def ProdutosCsw(projecao, empresa):
     produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
     produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
 
+    if empresa != '-':
+        produtos_ = produtos_[produtos_['empresa'] == empresa]
+    else:
+        produtos_ = produtos_
+
     return produtos_
 def ObtendoMarca(coditempai):
     if coditempai[1:4] == '102':
