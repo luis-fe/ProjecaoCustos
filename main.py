@@ -24,7 +24,5 @@ def token_required(f):
 
 
 if __name__ == '__main__':
-    produto = Service.produtos.ProdutosCsw('VERÃO 2024', '1')
-    Service.produtos.IncrementarProdutos('VERÃO 2024', '1')
-    print(produto)
+
     app.run(host='0.0.0.0', port=port)
