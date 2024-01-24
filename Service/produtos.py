@@ -54,10 +54,24 @@ def ProdutosCsw(projecao, empresa):
     produtos['categoria'] = produtos.apply(lambda row: Categoria('MEIA', row['descricao'], 'MEIA', row['categoria']), axis=1)
 
     produtos['projecao'] = projecao
-
+    produtos['marca'] = produtos.apply(lambda  row: ObtendoMarca(row['codengenharia']),axis=1)
 
     return produtos
-
+def ObtendoMarca(coditempai):
+    if coditempai[1:3] == '102':
+        return 'M.POLLO'
+    elif coditempai[1:3] == '202':
+        return 'M.POLLO'
+    elif coditempai[1:3] == '302':
+        return 'M.POLLO'
+    elif coditempai[1:3] == '104':
+        return 'PACO'
+    elif coditempai[1:3] == '204':
+        return 'PACO'
+    elif coditempai[1:3] == '304':
+        return 'PACO'
+    else:
+        return '-'
 
 def IncrementarProdutos(projecao, empresa):
 
