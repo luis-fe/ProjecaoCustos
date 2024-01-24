@@ -118,3 +118,12 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
         return valorNovo
     else:
         return categoria
+
+def ObeterProdutosOficial(projecao, empresa):
+    conn = ConexaoPostgreMPL.conexao()
+    produtos = 'select * from "Reposicao"."ProjCustos".produtos p ' \
+               'where projecao = %s '
+
+    produtos = pd.read_sql(produtos,conn,params=(projecao,))
+    conn.close()
+    return produtos
