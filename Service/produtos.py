@@ -31,7 +31,7 @@ def ProdutosCsw(projecao, empresa):
 
     basico = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
-                   "WHERE e.codEmpresa = 1 and d.nomeColecao like '%BASIC%' AND  d.nomeColecao like " + ano + " and e.status in (2,3)"\
+                   "WHERE e.codEmpresa = 1 and d.nomeColecao like '%BASIC%'  and e.status in (2,3)"\
     " and e.codEngenharia like '0%' AND e.codEngenharia like '%-0'  "
 
 
