@@ -24,7 +24,7 @@ def Funcao_Inserir (df_tags, tamanho,tabela, metodo):
     # Inserir dados em lotes
     chunksize = tamanho
     for i in range(0, len(df_tags), chunksize):
-        df_tags.iloc[i:i + chunksize].to_sql(tabela, engine, if_exists=metodo, index=False , schema='Reposicao')
+        df_tags.iloc[i:i + chunksize].to_sql(tabela, engine, if_exists=metodo, index=False , schema='ProjCustos')
 
 def Funcao_InserirOFF (df_tags, tamanho,tabela, metodo):
     # Configurações de conexão ao banco de dados

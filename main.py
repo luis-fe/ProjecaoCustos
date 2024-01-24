@@ -1,3 +1,4 @@
+import Service.produtos
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import os
@@ -23,4 +24,7 @@ def token_required(f):
 
 
 if __name__ == '__main__':
+    produto = Service.produtos.ProdutosCsw('VERÃO 2024', '1')
+    Service.produtos.IncrementarProdutos('VERÃO 2024', '1')
+    print(produto)
     app.run(host='0.0.0.0', port=port)
