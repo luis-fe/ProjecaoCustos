@@ -167,13 +167,16 @@ def ObeterProdutosOficial(projecao, empresa):
         produtosPostgre.fillna('-', inplace=True)
 
         contador = contador + 1
-        if contador == 1:
+        if not produtosPostgre.empty :
 
-            produtosPostgreX = produtosPostgre
-            print(produtosPostgreX)
+
+            if contador == 1:
+
+                produtosPostgreX = produtosPostgre
+            else:
+                produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
         else:
-            print(produtosPostgreX)
-            produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
+            print('vazio')
 
 
 
