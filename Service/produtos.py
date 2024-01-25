@@ -178,7 +178,8 @@ def ObterProdutosOficial(projecao, empresa, categoria):
         return None
     else:
         produtos_concatenados = FuncaoFiltro(empresa,produtos_concatenados,'empresa')
-        produtos_concatenados = FuncaoFiltro(empresa, produtos_concatenados, 'categoria')
+        produtos_concatenados = FuncaoFiltro(categoria, produtos_concatenados, 'categoria')
+
         return produtos_concatenados
 
 
