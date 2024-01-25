@@ -152,34 +152,34 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
     else:
         return categoria
 
-def ObeterProdutosOficial(projecao, empresa):
-    contador = 0
+import pandas as pd
+import ConexaoPostgreMPL  # Certifique-se de que o módulo de conexão esteja corretamente importado
+
+def ObterProdutosOficial(projecao, empresa):
+    produtos_concatenados = None  # Inicialize como None
+
+    conn = ConexaoPostgreMPL.conexao()  # Abra a conexão fora do loop
+
     for p in projecao:
+        produtosPostgre_query = 'select * from "Reposicao"."ProjCustos".produtos p ' \
+                                'where projecao = %s '
 
-        conn = ConexaoPostgreMPL.conexao()
-        produtosPostgre = 'select * from "Reposicao"."ProjCustos".produtos p ' \
-                   'where projecao = %s '
-
-        produtosPostgre = pd.read_sql(produtosPostgre,conn,params=(p,))
-        conn.close()
-
+        produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
 
-        contador = contador + 1
-        if not produtosPostgre.empty :
-
-
-            if contador == 1:
-
-                produtosPostgreX = produtosPostgre
+        if not produtosPostgre.empty:
+            if produtos_concatenados is None:
+                produtos_concatenados = produtosPostgre.copy()
             else:
-                produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
-        else:
-            print('vazio')
+                produtos_concatenados = pd.concat([produtos_concatenados, produtosPostgre], ignore_index=True)
 
+    conn.close()
 
-
-    return produtosPostgre
+    if produtos_concatenados is None:
+        print('Nenhum dado encontrado')
+        return None
+    else:
+        return produtos_concatenados
 
 
