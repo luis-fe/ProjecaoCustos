@@ -127,7 +127,7 @@ def obterEstrategia(descricao):
 
 def IncrementarProdutos(projecao, empresa):
 
-    if p in projecao:
+    for p in projecao:
 
         consultaStatus = pd.read_sql('select situacao "Reposicao"."ProjCustos".projecao '
                                      'where nome = %s ',conn, params=(p))
