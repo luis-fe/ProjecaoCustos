@@ -23,9 +23,7 @@ def get_Produtos():
     projecao = data.get('projecao','sem dados')
     empresa = data.get('empresa', '-')
     #Service.produtos.IncrementarProdutos(projecao, empresa)
-    print(projecao)
     Endereco_det = Service.produtos.ObterProdutosOficial(projecao, empresa)
-    Endereco_det = pd.DataFrame(Encdereco_det)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
     # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes
