@@ -168,10 +168,11 @@ def ObeterProdutosOficial(projecao, empresa):
 
         contador = contador + 1
         if contador == 1:
-            print(p)
+
             produtosPostgreX = produtosPostgre
+            print(produtosPostgreX)
         else:
-            print(p)
+            print(produtosPostgreX)
             produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
 
 
