@@ -177,6 +177,12 @@ def ObterProdutosOficial(projecao, empresa):
         print('Nenhum dado encontrado')
         return None
     else:
+        if len(empresa) >= 1:
+            return produtos_concatenados
+        else:
+            produtos_concatenados = produtos_concatenados[produtos_concatenados['empresa']==empresa[0]]
+
+
         return produtos_concatenados
 
 
