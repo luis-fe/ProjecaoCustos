@@ -152,9 +152,6 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
     else:
         return categoria
 
-import pandas as pd
-import ConexaoPostgreMPL  # Certifique-se de que o módulo de conexão esteja corretamente importado
-
 def ObterProdutosOficial(projecao, empresa):
     produtos_concatenados = None  # Inicialize como None
 
