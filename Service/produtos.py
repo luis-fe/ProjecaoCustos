@@ -130,7 +130,7 @@ def IncrementarProdutos(projecao, empresa):
     for p in projecao:
         conn = ConexaoPostgreMPL.conexao()
         consultaStatus = pd.read_sql('select situacao from "Reposicao"."ProjCustos".projecao '
-                                     'where nome = %s ',conn, params=(p))
+                                     'where nome = %s ',conn, params=(p,))
 
         if consultaStatus['situacao'][0] == 'INICIADA':
 
