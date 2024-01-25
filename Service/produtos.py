@@ -127,21 +127,31 @@ def obterEstrategia(descricao):
 
 def IncrementarProdutos(projecao, empresa):
 
-    delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
-             ' where projecao = %s'
+    if p in projecao:
 
-    conn = ConexaoPostgreMPL.conexao()
-    cursor = conn.cursor()
-    cursor.execute(delete,(projecao,))
-    conn.commit()
-    cursor.close()
-    conn.close()
+        consultaStatus = pd.read_sql('select situacao "Reposicao"."ProjCustos".projecao '
+                                     'where nome = %s ',conn, params=(p))
+
+        if consultaStatus['situacao'][0] == 'INICIADA':
+
+            print(f'colecao {p} ja Iniciou vendas')
+        else:
+
+            delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
+                     ' where projecao = %s'
+
+            conn = ConexaoPostgreMPL.conexao()
+            cursor = conn.cursor()
+            cursor.execute(delete,(p,))
+            conn.commit()
+            cursor.close()
+            conn.close()
 
 
 
 
-    ObeterProdutos = ProdutosCsw(projecao, empresa)
-    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos,ObeterProdutos.size,'produtos','append')
+            ObeterProdutos = ProdutosCsw(p, empresa)
+            ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos,ObeterProdutos.size,'produtos','append')
 
 
 
