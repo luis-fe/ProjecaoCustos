@@ -171,6 +171,7 @@ def ObeterProdutosOficial(projecao, empresa):
             print(p)
             produtosPostgreX = produtosPostgre
         else:
+            print(p)
             produtosPostgreX = pd.concat([produtosPostgreX,produtosPostgre])
 
 
