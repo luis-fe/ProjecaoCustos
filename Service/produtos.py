@@ -183,6 +183,6 @@ def ObterProdutosOficial(projecao, empresa):
             produtos_concatenados = produtos_concatenados[produtos_concatenados['empresa']==empresa[0]]
 
 
-        return produtos_concatenados
+            return produtos_concatenados
 
 
