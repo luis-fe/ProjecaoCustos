@@ -25,7 +25,7 @@ def get_Produtos():
     categoria = data.get('categoria', '-')
     marca = data.get('marca', '-')
     grupo = data.get('grupo','-')
-    #Service.produtos.IncrementarProdutos(projecao, empresa)
+    Service.produtos.IncrementarProdutos(projecao, empresa)
     Endereco_det = Service.produtos.ObterProdutosOficial(projecao, empresa, categoria,marca,grupo)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
