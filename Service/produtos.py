@@ -177,13 +177,20 @@ def ObterProdutosOficial(projecao, empresa):
         print('Nenhum dado encontrado')
         return None
     else:
-        if len(empresa) > 1 or empresa == '-':
-
-            return produtos_concatenados
-        else:
-            produtos_concatenados = produtos_concatenados[produtos_concatenados['empresa']==empresa[0]]
+        produtos_concatenados = FuncaoFiltro(empresa,produtos_concatenados,'empresa')
+        return produtos_concatenados
 
 
-            return produtos_concatenados
+def FuncaoFiltro(valores, dataframe, nomeColuna):
+    if valores == '-':
+        return dataframe
+    elif valores == []:
+        return dataframe
+    else:
 
+        dataframeVetor = None
+        for p in valores:
 
+            dataframeFiltrado = dataframe[dataframe[nomeColuna] == valores[p]]
+            dataframeVetor = pd.concat([dataframeVetor,dataframeFiltrado])
+        return dataframeVetor
