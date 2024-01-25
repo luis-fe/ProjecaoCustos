@@ -152,7 +152,7 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
     else:
         return categoria
 
-def ObterProdutosOficial(projecao, empresa):
+def ObterProdutosOficial(projecao, empresa, categoria):
     produtos_concatenados = None  # Inicialize como None
 
     conn = ConexaoPostgreMPL.conexao()  # Abra a conexão fora do loop
@@ -178,6 +178,7 @@ def ObterProdutosOficial(projecao, empresa):
         return None
     else:
         produtos_concatenados = FuncaoFiltro(empresa,produtos_concatenados,'empresa')
+        produtos_concatenados = FuncaoFiltro(empresa, produtos_concatenados, 'categoria')
         return produtos_concatenados
 
 
