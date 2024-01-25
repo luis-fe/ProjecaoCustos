@@ -191,6 +191,6 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
         dataframeVetor = None
         for p in valores:
 
-            dataframeFiltrado = dataframe[dataframe[nomeColuna] == valores[p]]
+            dataframeFiltrado = dataframe[dataframe[nomeColuna] == p]
             dataframeVetor = pd.concat([dataframeVetor,dataframeFiltrado])
         return dataframeVetor
