@@ -203,3 +203,22 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
             dataframeFiltrado = dataframe[dataframe[nomeColuna] == p]
             dataframeVetor = pd.concat([dataframeVetor,dataframeFiltrado])
         return dataframeVetor
+
+def RestricaoEngenharia(engenharia, obs, usuario):
+    conn = ConexaoPostgreMPL.conexao()
+
+    inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
+              '(engeharia, obs, usuario) values (%s , %s , %s )'
+
+    cursor = conn.cursor()
+    cursor.execute(inserir, (engenharia,obs,usuario))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+    conn.close()
+
+    return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+
+
