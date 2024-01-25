@@ -111,9 +111,9 @@ def ObetendoEmpresa(coditempai):
 
 def obterGrupo(descricao):
     if 'PACK' in descricao:
-        return 'ESSENCIAL ALTO GIRO'
+        return 'ESSENCIAL ALTO/GIRO'
     elif ' CB' in descricao:
-        return 'ESSENCIAL ALTO GIRO'
+        return 'ESSENCIAL ALTO/GIRO'
     else:
         return '-'
 
