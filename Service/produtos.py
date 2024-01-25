@@ -128,7 +128,7 @@ def obterEstrategia(descricao):
 def IncrementarProdutos(projecao, empresa):
 
     for p in projecao:
-
+        conn = ConexaoPostgreMPL.conexao()
         consultaStatus = pd.read_sql('select situacao "Reposicao"."ProjCustos".projecao '
                                      'where nome = %s ',conn, params=(p))
 
@@ -140,7 +140,7 @@ def IncrementarProdutos(projecao, empresa):
             delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
                      ' where projecao = %s'
 
-            conn = ConexaoPostgreMPL.conexao()
+
             cursor = conn.cursor()
             cursor.execute(delete,(p,))
             conn.commit()
