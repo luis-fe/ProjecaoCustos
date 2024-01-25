@@ -23,8 +23,10 @@ def get_Produtos():
     projecao = data.get('projecao','sem dados')
     empresa = data.get('empresa', '-')
     categoria = data.get('categoria', '-')
+    marca = data.get('marca', '-')
+    grupo = data.get('grupo','-')
     #Service.produtos.IncrementarProdutos(projecao, empresa)
-    Endereco_det = Service.produtos.ObterProdutosOficial(projecao, empresa, categoria)
+    Endereco_det = Service.produtos.ObterProdutosOficial(projecao, empresa, categoria,marca,grupo)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
     # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes
