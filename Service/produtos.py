@@ -228,7 +228,7 @@ def ConsultaCadastroItensCSW(engenharia):
 
     consulta = "Select coditem, codcor from cgi.item2 where empresa = 1 and coditempai = " +coditempai+""
 
-    consultaAfvBloqueio = "select reduzido as coditem from Asgo_Afv.EngenhariasBloqueadas  b where b.codempresa = 1 and b.codengenharia = " + engenharia+""
+    consultaAfvBloqueio = "select reduzido as coditem, 'bloqueado' as situacao from Asgo_Afv.EngenhariasBloqueadas  b where b.codempresa = 1 and b.codengenharia = " + engenharia+""
 
     consulta = pd.read_sql(consulta,conn)
     consultaAfvBloqueio = pd.read_sql(consultaAfvBloqueio, conn)
