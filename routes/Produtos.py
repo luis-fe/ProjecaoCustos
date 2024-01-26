@@ -68,7 +68,8 @@ def ConsultaCadastroItensCSW():
     engenharia = request.args.get('engenharia')
 
 
-    Endereco_det = Service.produtos.ConsultaCadastroItensCSW(engenharia)
+    Endereco_det, qtItensNormais = Service.produtos.ConsultaCadastroItensCSW(engenharia)
+    print(qtItensNormais)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
     # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes
