@@ -226,9 +226,9 @@ def ConsultaCadastroItensCSW(engenharia):
     coditempai = engenharia[1:9]
     conn = ConexaoCSW.Conexao()
 
-    consulta = "Select coditem, codcor from cgi.item2 where empresa = 1 and coditempai = " +coditempai+""
+    consulta = "Select coditem as reduzido, codcor from cgi.item2 where empresa = 1 and coditempai = " +coditempai+""
 
-    consultaAfvBloqueio = "select reduzido as coditem, 'bloqueado' as situacao from Asgo_Afv.EngenhariasBloqueadas  b where b.codempresa = 1 and b.codengenharia = '" + engenharia+"'"
+    consultaAfvBloqueio = "select reduzido as reduzido, 'bloqueado' as situacao from Asgo_Afv.EngenhariasBloqueadas  b where b.codempresa = 1 and b.codengenharia = '" + engenharia+"'"
 
     consulta = pd.read_sql(consulta,conn)
 
@@ -241,7 +241,7 @@ def ConsultaCadastroItensCSW(engenharia):
         consulta['situacao'] = '-'
 
     else:
-        consulta = pd.merge(consulta, consultaAfvBloqueio, on='coditem', how='left')
+        consulta = pd.merge(consulta, consultaAfvBloqueio, on='reduzido', how='left')
 
 
 
