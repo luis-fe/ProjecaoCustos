@@ -48,7 +48,7 @@ def ProdutosCsw(projecao, empresa):
 
         precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat  as precoCSW FROM ped.TabelaPreco p ' \
                         'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
-                        "WHERE p.codEmpresa = 1 and p.descricao like 'VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
     else:
         produtos = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
@@ -66,7 +66,7 @@ def ProdutosCsw(projecao, empresa):
 
         precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
                         'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
-                        "WHERE p.codEmpresa = 1 and p.descricao like 'INVE%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%INVE%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
     basico = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
