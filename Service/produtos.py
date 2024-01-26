@@ -23,7 +23,7 @@ def ProdutosCsw(projecao, empresa):
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%ALTO VER%' and capa.codempresa= 1"
 
 
-        grade = 'SELECT d.codEngenharia as  codengenharia, g.grade  from tcp.GradesEngenharia  g ' \
+        grade = 'SELECT d.codEngenharia as  codengenharia, g.codgrade as grade  from tcp.GradesEngenharia  g ' \
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like '%ALTO VER%' AND  d.nomeColecao like " +ano+ ""
 
@@ -37,7 +37,7 @@ def ProdutosCsw(projecao, empresa):
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like 'VER%' and capa.codempresa= 1"
 
-        grade = 'SELECT d.codEngenharia as  codengenharia, g.grade  from tcp.GradesEngenharia  g ' \
+        grade = 'SELECT d.codEngenharia as  codengenharia, g.codgrade as grade  from tcp.GradesEngenharia  g ' \
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " +ano+ ""
 
@@ -51,7 +51,7 @@ def ProdutosCsw(projecao, empresa):
                    'inner join CusTex_Tpc.CProdCapa capa on capa.codempresa = t.codEmpresa  and capa.numeroProj  = t.numeroProj ' \
                    "WHERE capa.descProjecao like " + ano + " and  capa.descProjecao like '%INVE%' and capa.codempresa= 1"
 
-        grade = 'SELECT d.codEngenharia as  codengenharia, g.grade  from tcp.GradesEngenharia  g ' \
+        grade = 'SELECT d.codEngenharia as  codengenharia, g.codgrade as grade  from tcp.GradesEngenharia  g ' \
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'INVE%' AND  d.nomeColecao like " +ano+ ""
 
