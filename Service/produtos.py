@@ -27,6 +27,10 @@ def ProdutosCsw(projecao, empresa):
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like '%ALTO VER%' AND  d.nomeColecao like " +ano+ ""
 
+        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat as precoCad.  FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%ALTO VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
+
 
     elif 'VER' in projecao:
         produtos = 'SELECT e.codEngenharia as codengenharia, e.descricao  FROM tcp.Engenharia e ' \
@@ -42,6 +46,10 @@ def ProdutosCsw(projecao, empresa):
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " +ano+ ""
 
+        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat  as precoCad. FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like 'VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
+
     else:
         produtos = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
@@ -55,6 +63,10 @@ def ProdutosCsw(projecao, empresa):
         grade = 'SELECT d.codEngenharia as  codengenharia, g.codgrade as grade  from tcp.GradesEngenharia  g ' \
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'INVE%' AND  d.nomeColecao like " +ano+ ""
+
+        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat as precoCad.  FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like 'INVE%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
     basico = 'SELECT e.codEngenharia as codengenharia , e.descricao  FROM tcp.Engenharia e ' \
                    'inner join tcp.DadosGeraisEng d on d.codEmpresa = e.codEmpresa and d.codEngenharia = e.codEngenharia ' \
@@ -84,6 +96,10 @@ def ProdutosCsw(projecao, empresa):
     projecaoCSW = pd.read_sql(projecaoCSW, conn)
     projecaoCSW['situacaocusto'] = 'Projetado'
     produtos_ = pd.merge(produtos_, projecaoCSW , on='codengenharia', how='left')
+
+    precoCastrado = pd.read_sql(precoCastrado, conn)
+    precoCastrado['grade'] = precoCastrado['grade'].str.split('/', 1, expand=True)
+    produtos_ = pd.merge(produtos_, precoCastrado, on=['codengenharia','grade'], how='left')
 
     conn.close()
     produtos_['grade'] = produtos_.apply(
