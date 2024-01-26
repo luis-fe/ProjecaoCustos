@@ -267,21 +267,28 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
         return dataframeVetor
 
 def RestricaoEngenharia(engenharia, obs, usuario, projecao):
-    conn = ConexaoPostgreMPL.conexao()
-
-    inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
-              '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
-
-    cursor = conn.cursor()
-    cursor.execute(inserir, (engenharia,obs,usuario, projecao))
-    conn.commit()
-    cursor.close()
-    conn.close()
 
 
-    conn.close()
+    validarPreco = ConsultaPrecoCSW()
 
-    return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+    if validarPreco == 'Permite':
+        conn = ConexaoPostgreMPL.conexao()
+
+        inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
+                  '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
+
+        cursor = conn.cursor()
+        cursor.execute(inserir, (engenharia, obs, usuario, projecao))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        conn.close()
+
+        return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+    else:
+        return pd.DataFrame([{'MENSAGEM': f'erro a Engenharia {engenharia} possui preço de venda no CSW, '
+                                          f'solicite a retira dela da tabela de preços'}])
 
 def ConsultaCadastroItensCSW(engenharia):
 
@@ -311,3 +318,35 @@ def ConsultaCadastroItensCSW(engenharia):
     return consulta, qtItensNormais
 
 
+def ConsultaPrecoCSW(engenharia , projecao):
+
+    ano = projecao[-2:]
+    ano = "'%"+ano+"%'"
+    coditempai = engenharia[1:9]
+
+    conn = ConexaoCSW.Conexao()
+    if 'ALT' in projecao:
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%ALTO%' AND p.descricao like " + ano + " and codFaixa <> '0' " \
+                                                                                                             "And codProduto = '"+coditempai+"'"
+
+    elif 'VER' in projecao:
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%VER%' AND p.descricao like " + ano + " and codFaixa <> '0'" \
+                                                                                                             "And codProduto = '"+coditempai+"'"
+    else:
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
+                        'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
+                        "WHERE p.codEmpresa = 1 and p.descricao like '%INVER%' AND p.descricao like " + ano + " and codFaixa <> '0'" \
+                                                                                                              "And codProduto = '" + coditempai + "'"
+
+
+    precoCastrado = pd.read_sql(precoCastrado, conn)
+    conn.close()
+
+    if precoCastrado.empty:
+        return 'permite'
+    else:
+        return 'bloqueia'
