@@ -237,7 +237,6 @@ def ConsultaCadastroItensCSW(engenharia):
 
 
 
-    consulta.fillna('-',index = True)
 
     return consultaAfvBloqueio
 
