@@ -75,6 +75,8 @@ def ProdutosCsw(projecao, empresa):
 
     basico = pd.read_sql(basico,conn)
     basico['origem'] = 'Continuadas'
+    gradebASICO = pd.read_sql(gradebASICO, conn)
+    basico = pd.merge(produtos_,gradebASICO,on='codengenharia', how='left')
 
     produtos_ = pd.concat([produtos_, basico])
 
