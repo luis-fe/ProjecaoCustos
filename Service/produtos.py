@@ -233,12 +233,12 @@ def ConsultaCadastroItensCSW(engenharia):
     consulta = pd.read_sql(consulta,conn)
     consultaAfvBloqueio = pd.read_sql(consultaAfvBloqueio, conn)
     conn.close()
-    consulta = pd.merge(consulta, consultaAfvBloqueio, on='coditem', how='left')
+    #consulta = pd.merge(consulta, consultaAfvBloqueio, on='coditem', how='left')
 
 
 
     consulta.fillna('-',index = True)
 
-    return consulta
+    return consultaAfvBloqueio
 
 
