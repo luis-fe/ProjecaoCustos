@@ -85,6 +85,8 @@ def ProdutosCsw(projecao, empresa):
     produtos_ = pd.merge(produtos_, projecaoCSW , on='codengenharia', how='left')
 
     conn.close()
+    produtos_['grade'] = produtos_.apply(
+        lambda row: obterGrade(row['grade']), axis=1)
     produtos_['categoria'] = '-'
     produtos_['categoria'] = produtos_.apply(lambda row: Categoria('BLAZER', row['descricao'], 'JAQUETA', row['categoria']), axis=1)
     produtos_['categoria'] = produtos_.apply(lambda row: Categoria('TSHIRT', row['descricao'], 'CAMISETA', row['categoria']), axis=1)
@@ -145,6 +147,13 @@ def obterEstrategia(descricao):
         return 'COMBO'
     else:
         return '-'
+
+
+def obterGrade(grade):
+    if grade in ['6','14','16','17','23','24','25','27','28','36','37','40','41']:
+        return 'FILHO'
+    else:
+        return 'PAI'
 
 def IncrementarProdutos(projecao, empresa):
 
