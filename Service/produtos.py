@@ -231,13 +231,21 @@ def ConsultaCadastroItensCSW(engenharia):
     consultaAfvBloqueio = "select reduzido as coditem, 'bloqueado' as situacao from Asgo_Afv.EngenhariasBloqueadas  b where b.codempresa = 1 and b.codengenharia = '" + engenharia+"'"
 
     consulta = pd.read_sql(consulta,conn)
+
+
     consultaAfvBloqueio = pd.read_sql(consultaAfvBloqueio, conn)
     conn.close()
-    #consulta = pd.merge(consulta, consultaAfvBloqueio, on='coditem', how='left')
+
+
+    if consultaAfvBloqueio.empty:
+        consulta['situacao'] = '-'
+
+    else:
+        consulta = pd.merge(consulta, consultaAfvBloqueio, on='coditem', how='left')
 
 
 
-
-    return consultaAfvBloqueio
+    consulta.fillna('-',inplace=True)
+    return consulta
 
 
