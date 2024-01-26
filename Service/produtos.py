@@ -60,7 +60,7 @@ def ProdutosCsw(projecao, empresa):
                    "WHERE e.codEmpresa = 1 and d.nomeColecao like '%BASIC%'  and e.status in (2,3)"\
     " and e.codEngenharia like '0%' AND e.codEngenharia like '%-0'  "
 
-    gradebASICO = 'SELECT d.codEngenharia as  codengenharia, g.grade  from tcp.GradesEngenharia  g ' \
+    gradebASICO = 'SELECT d.codEngenharia as  codengenharia, g.codgrade as grade  from tcp.GradesEngenharia  g ' \
             ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
             " where d.codEmpresa = 1 and d.nomeColecao like 'BASIC%' "
 
