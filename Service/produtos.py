@@ -242,9 +242,10 @@ def ConsultaCadastroItensCSW(engenharia):
 
     else:
         consulta = pd.merge(consulta, consultaAfvBloqueio, on='reduzido', how='left')
+    consulta.fillna('-', inplace=True)
     Normais = consulta[consulta['situacao'] == '-']
     qtItensNormais = Normais['situacao'].count()
-    consulta.fillna('-',inplace=True)
+
     return consulta, qtItensNormais
 
 
