@@ -226,7 +226,7 @@ def ConsultaCadastroItensCSW(engenharia):
     coditempai = engenharia[1:9]
     conn = ConexaoCSW.Conexao()
 
-    consulta = "Select coditem from cgi.item2 where empresa = 1 and coditempai = " +coditempai+""
+    consulta = "Select coditem, codcor from cgi.item2 where empresa = 1 and coditempai = " +coditempai+""
 
     consulta = pd.read_sql(consulta,conn)
 
