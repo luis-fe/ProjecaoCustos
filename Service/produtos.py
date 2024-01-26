@@ -271,7 +271,7 @@ def RestricaoEngenharia(engenharia, obs, usuario, projecao):
 
     validarPreco = ConsultaPrecoCSW(engenharia, projecao)
 
-    if validarPreco == 'Permite':
+    if validarPreco == 'permite':
         conn = ConexaoPostgreMPL.conexao()
 
         inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
