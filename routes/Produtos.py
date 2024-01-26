@@ -48,8 +48,9 @@ def get_RetirarProduto():
     engenharia = data.get('engenharia')
     obs = data.get('obs', '-')
     usuario = data.get('usuario', '-')
+    projecao = data.get('projecao', '-')
 
-    Endereco_det = Service.produtos.RestricaoEngenharia(engenharia,obs,usuario)
+    Endereco_det = Service.produtos.RestricaoEngenharia(engenharia,obs,usuario, projecao)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
     # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes

@@ -204,14 +204,14 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
             dataframeVetor = pd.concat([dataframeVetor,dataframeFiltrado])
         return dataframeVetor
 
-def RestricaoEngenharia(engenharia, obs, usuario):
+def RestricaoEngenharia(engenharia, obs, usuario, projecao):
     conn = ConexaoPostgreMPL.conexao()
 
     inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
               '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
 
     cursor = conn.cursor()
-    cursor.execute(inserir, (engenharia,obs,usuario))
+    cursor.execute(inserir, (engenharia,obs,usuario, projecao))
     conn.commit()
     cursor.close()
     conn.close()
