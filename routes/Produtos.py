@@ -61,3 +61,22 @@ def get_RetirarProduto():
             end_dict[column_name] = row[column_name]
         end_data.append(end_dict)
     return jsonify(end_data)
+@Produtos_routes.route('/api/ConsultaCadastroItensCSW', methods=['GET'])
+@token_required
+def ConsultaCadastroItensCSW():
+    # Obtém os dados do corpo da requisição (JSON)
+    data = request.get_json()
+    engenharia = data.get('engenharia')
+
+
+    Endereco_det = Service.produtos.ConsultaCadastroItensCSW(engenharia)
+    # Obtém os nomes das colunas
+    column_names = Endereco_det.columns
+    # Monta o dicionário com os cabeçalhos das colunas e os valores correspondentes
+    end_data = []
+    for index, row in Endereco_det.iterrows():
+        end_dict = {}
+        for column_name in column_names:
+            end_dict[column_name] = row[column_name]
+        end_data.append(end_dict)
+    return jsonify(end_data)
