@@ -65,7 +65,7 @@ def get_RetirarProduto():
 @token_required
 def ConsultaCadastroItensCSW():
     # Obtém os dados do corpo da requisição (JSON)
-    engenharia = request.get('engenharia')
+    engenharia = request.args.get('engenharia')
 
 
     Endereco_det = Service.produtos.ConsultaCadastroItensCSW(engenharia)
