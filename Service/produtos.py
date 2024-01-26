@@ -98,6 +98,8 @@ def ProdutosCsw(projecao, empresa):
     produtos_ = pd.merge(produtos_, projecaoCSW , on='codengenharia', how='left')
 
     precoCastrado = pd.read_sql(precoCastrado, conn)
+    precoCastrado['codengenharia'] = precoCastrado['codengenharia'].astype(str)
+    precoCastrado['codengenharia'] = '0'+precoCastrado['codengenharia'] +'-0'
     precoCastrado['grade'] = precoCastrado['grade'].str.extract(r'\/(.+)$')
     precoCastrado['grade'] = precoCastrado.apply(
         lambda row: obterGrade(row['grade']), axis=1)
