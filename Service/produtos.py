@@ -150,7 +150,7 @@ def obterEstrategia(descricao):
 
 
 def obterGrade(grade):
-    if grade in ['6','14','16','17','23','24','25','27','28','36','37','40','41']:
+    if grade in ['6','14','16','17','23','24','25','27','28','36','37','40','41','58']:
         return 'FILHO'
     else:
         return 'PAI'
