@@ -208,7 +208,7 @@ def RestricaoEngenharia(engenharia, obs, usuario):
     conn = ConexaoPostgreMPL.conexao()
 
     inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
-              '(codengeharia, obs, usuario) values (%s , %s , %s )'
+              '(codengenharia, obs, usuario) values (%s , %s , %s )'
 
     cursor = conn.cursor()
     cursor.execute(inserir, (engenharia,obs,usuario))
