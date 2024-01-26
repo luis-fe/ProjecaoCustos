@@ -269,7 +269,7 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
 def RestricaoEngenharia(engenharia, obs, usuario, projecao):
 
 
-    validarPreco = ConsultaPrecoCSW()
+    validarPreco = ConsultaPrecoCSW(engenharia, projecao)
 
     if validarPreco == 'Permite':
         conn = ConexaoPostgreMPL.conexao()
