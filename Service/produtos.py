@@ -27,7 +27,7 @@ def ProdutosCsw(projecao, empresa):
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like '%ALTO VER%' AND  d.nomeColecao like " +ano+ ""
 
-        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
                         'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
                         "WHERE p.codEmpresa = 1 and p.descricao like '%ALTO VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
@@ -46,7 +46,7 @@ def ProdutosCsw(projecao, empresa):
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'VER%' AND  d.nomeColecao like " +ano+ ""
 
-        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat  as precoCSW FROM ped.TabelaPreco p ' \
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat  as precoCSW FROM ped.TabelaPreco p ' \
                         'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
                         "WHERE p.codEmpresa = 1 and p.descricao like 'VER%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
@@ -64,7 +64,7 @@ def ProdutosCsw(projecao, empresa):
                    ' inner join tcp.DadosGeraisEng d on d.codEmpresa = g.Empresa  and d.codEngenharia = g.codEngenharia ' \
                 " where d.codEmpresa = 1 and d.nomeColecao like 'INVE%' AND  d.nomeColecao like " +ano+ ""
 
-        precoCastrado = 'SELECT I.codProduto, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
+        precoCastrado = 'SELECT I.codProduto as codengenharia, I.codFaixa as grade, I.precoTabelaFloat as precoCSW  FROM ped.TabelaPreco p ' \
                         'INNER JOIN PED.TabelaPrecoItem I ON I.codEmpresa = p.codEmpresa and I.codTabela = p.codTabela ' \
                         "WHERE p.codEmpresa = 1 and p.descricao like 'INVE%' AND p.descricao like " +ano+ " and codFaixa <> '0'"
 
