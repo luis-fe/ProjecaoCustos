@@ -17,7 +17,7 @@ def ConsultaProjecaoMPCsw(projecao):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" tc.descProjecao like '%ALTO VE%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%'"
 
 
     elif 'VER' in projecao:
@@ -27,7 +27,7 @@ def ConsultaProjecaoMPCsw(projecao):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" tc.descProjecao like '%VE%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VE%'"
     else:
 
         consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
@@ -35,7 +35,7 @@ def ConsultaProjecaoMPCsw(projecao):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" tc.descProjecao like '%INVER%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVER%'"
 
     ESTOQUE = 'SELECT codItem as codInsumo ,estoqueAtual ,precoMedio  FROM est.DadosEstoque d WHERE d.codNatureza in (1, 2) and estoqueAtual > 0'
 
