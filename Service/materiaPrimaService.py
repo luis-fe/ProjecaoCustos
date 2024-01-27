@@ -4,15 +4,18 @@ import ConexaoPostgreMPL
 import pandas as pd
 
 
-def ConsultaProjecaoMPCsw(projecao):
+def ConsultaProjecaoMPCsw(projecao ,empresa = ['-']):
 
     conn = ConexaoCSW.Conexao()
 
     ano = projecao[-2:]
     ano = "'%"+ano+"%'"
 
+
+
     if 'ALT' in projecao:
-        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+
+        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -22,7 +25,7 @@ def ConsultaProjecaoMPCsw(projecao):
 
     elif 'VER' in projecao:
 
-        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -30,7 +33,7 @@ def ConsultaProjecaoMPCsw(projecao):
                 " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VE%'"
     else:
 
-        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -61,8 +64,13 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
             print(f'colecao {p} ja Iniciou vendas')
         else:
 
-            delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
-                     ' where projecao = %s'
+            if empresa == '-':
+
+                delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
+                     ' where projecao = %s '
+            else:
+                delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
+                     ' where projecao = %s and empresa = %s '
 
 
             cursor = conn.cursor()
@@ -74,7 +82,7 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
 
 
 
-            ObeterProdutos = ConsultaProjecaoMPCsw(p)
+            ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
             ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos,ObeterProdutos.size,'custoMP','append')
 
 

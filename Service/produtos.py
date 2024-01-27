@@ -258,7 +258,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
 def FuncaoFiltro(valores, dataframe, nomeColuna):
     if valores == '-':
         return dataframe
-    elif valores == []:
+    elif valores == [] or valores == ['-']:
         return dataframe
     else:
 

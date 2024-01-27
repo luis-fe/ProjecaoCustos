@@ -22,7 +22,7 @@ def get_Produtos():
     # Obtém os dados do corpo da requisição (JSON)
     data = request.get_json()
     projecao = data.get('projecao','sem dados')
-    empresa = data.get('empresa', '-')
+    empresa = data.get('empresa', ['-'])
     categoria = data.get('categoria', '-')
     marca = data.get('marca', '-')
     grupo = data.get('grupo','-')
