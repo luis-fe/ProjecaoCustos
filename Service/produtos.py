@@ -105,7 +105,6 @@ def ProdutosCsw(projecao, empresa):
     precoCastrado['grade'] = precoCastrado.apply(
         lambda row: obterGrade(row['grade']), axis=1)
 
-    print(precoCastrado)
 
 
 
@@ -132,6 +131,14 @@ def ProdutosCsw(projecao, empresa):
     produtos_['empresa'] = produtos_.apply(lambda row: ObetendoEmpresa(row['codengenharia']), axis=1)
     produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
     produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
+
+    restricoes = ConsultaRestricoes(projecao)
+
+    if restricoes != 'Vazio':
+        result = pd.merge(produtos_, restricoes, on='codengenharia', how='left', indicator=True).query('_merge == "left_only"').drop(
+            '_merge', axis=1)
+    else:
+        produtos_ = produtos_
 
     return produtos_
 def ObtendoMarca(coditempai):
@@ -357,3 +364,18 @@ def ConsultaPrecoCSW(engenharia , projecao):
         return 'permite'
     else:
         return 'bloqueia'
+
+def ConsultaRestricoes(projecao):
+    conn = ConexaoPostgreMPL.conexao()
+
+    consulta = 'Select * from "Reposicao"."ProjCustos".restricaoengenharia ' \
+               'where  projecao = %s '
+    consulta = pd.read_sql(consulta,conn,params=(projecao,))
+
+    conn.close()
+
+    if consulta.empty:
+        return 'vazio'
+
+    else:
+        return consulta
