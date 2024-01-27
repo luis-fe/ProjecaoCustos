@@ -134,7 +134,7 @@ def ProdutosCsw(projecao, empresa):
 
     restricoes = ConsultaRestricoes(projecao)
 
-    if restricoes != 'Vazio':
+    if not restricoes.empty:
         result = pd.merge(produtos_, restricoes, on='codengenharia', how='left', indicator=True).query('_merge == "left_only"').drop(
             '_merge', axis=1)
     else:
@@ -374,8 +374,5 @@ def ConsultaRestricoes(projecao):
 
     conn.close()
 
-    if consulta.empty:
-        return 'vazio'
 
-    else:
-        return consulta
+    return consulta
