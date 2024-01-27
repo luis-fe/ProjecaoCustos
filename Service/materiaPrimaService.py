@@ -49,6 +49,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = ['-']):
     conn.close()
     consulta = pd.merge(consulta,ESTOQUE,on='codInsumo', how='left')
     consulta['projecao']=projecao
+    consulta['empresa'] = consulta.apply(lambda r: 'MATRIZ' if row[empresa] == '1' else 'FILIAL', axis=1)
 
     return consulta
 
