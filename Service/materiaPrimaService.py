@@ -39,10 +39,11 @@ def ConsultaProjecaoMPCsw(projecao):
 
     ESTOQUE = 'SELECT codItem as codInsumo ,estoqueAtual ,precoMedio  FROM est.DadosEstoque d WHERE d.codNatureza in (1, 2) and estoqueAtual > 0'
 
-    conn.close()
+
 
     consulta = pd.read_sql(consulta,conn)
     ESTOQUE = pd.read_sql(ESTOQUE,conn)
+    conn.close()
     consulta = pd.merge(consulta,ESTOQUE,on='codInsumo', how='left')
     consulta['projecao']=projecao
 
