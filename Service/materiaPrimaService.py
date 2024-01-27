@@ -12,7 +12,7 @@ def ConsultaProjecaoMPCsw(projecao):
     ano = "'%"+ano+"%'"
 
     if 'ALT' in projecao:
-        conulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -22,7 +22,7 @@ def ConsultaProjecaoMPCsw(projecao):
 
     elif 'VER' in projecao:
 
-        conulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -30,7 +30,7 @@ def ConsultaProjecaoMPCsw(projecao):
                 " WHERE tc.descProjecao like "+ano+" tc.descProjecao like '%VE%'"
     else:
 
-        conulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        consulta = 'SELECT V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
@@ -41,12 +41,12 @@ def ConsultaProjecaoMPCsw(projecao):
 
     conn.close()
 
-    conulta = pd.read_sql(consulta,conn)
+    consulta = pd.read_sql(consulta,conn)
     ESTOQUE = pd.read_sql(ESTOQUE,conn)
-    conulta = pd.merge(conulta,ESTOQUE,on='codInsumo', how='left')
-    conulta['projecao']=projecao
+    consulta = pd.merge(consulta,ESTOQUE,on='codInsumo', how='left')
+    consulta['projecao']=projecao
 
-    return conulta
+    return consulta
 
 def IncrementarProdutosMateriaPrima(projecao, empresa):
 
