@@ -132,13 +132,6 @@ def ProdutosCsw(projecao, empresa):
     produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
     produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
 
-    restricoes = ConsultaRestricoes(projecao)
-
-    if not restricoes.empty:
-        result = pd.merge(produtos_, restricoes, on='codengenharia', how='left', indicator=True).query('_merge == "left_only"').drop(
-            '_merge', axis=1)
-    else:
-        produtos_ = produtos_
 
     return produtos_
 def ObtendoMarca(coditempai):
@@ -238,6 +231,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
+        ConsultaRestricoes(p)
 
         if not produtosPostgre.empty:
             if produtos_concatenados is None:
@@ -255,6 +249,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtos_concatenados = FuncaoFiltro(categoria, produtos_concatenados, 'categoria')
         produtos_concatenados = FuncaoFiltro(marca, produtos_concatenados, 'marca')
         produtos_concatenados = FuncaoFiltro(grupo, produtos_concatenados, 'grupo')
+
 
         return produtos_concatenados
 
@@ -368,9 +363,18 @@ def ConsultaPrecoCSW(engenharia , projecao):
 def ConsultaRestricoes(projecao):
     conn = ConexaoPostgreMPL.conexao()
 
-    consulta = 'Select * from "Reposicao"."ProjCustos".restricaoengenharia ' \
+    consulta = 'Select codengenharia from "Reposicao"."ProjCustos".restricaoengenharia ' \
                'where  projecao = %s '
     consulta = pd.read_sql(consulta,conn,params=(projecao,))
+
+
+    delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
+             'where codengenharia in (' \
+             'Select codengenharia from "Reposicao"."ProjCustos".restricaoengenharia  where projecao = %s ) '
+
+    cursor = conn.cursor()
+    cursor.execute(delete,(projecao,))
+    conn.commit()
 
     conn.close()
 
