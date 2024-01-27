@@ -371,10 +371,11 @@ def ConsultaRestricoes(projecao):
 
     delete = 'delete from "Reposicao"."ProjCustos".produtos ' \
              'where codengenharia in (' \
-             'Select codengenharia from "Reposicao"."ProjCustos".restricaoengenharia  where projecao = %s ) '
+             'Select codengenharia from "Reposicao"."ProjCustos".restricaoengenharia  where projecao = %s ) ' \
+             ' and where projecao = %s '
 
     cursor = conn.cursor()
-    cursor.execute(delete,(projecao,))
+    cursor.execute(delete,(projecao,projecao,))
     conn.commit()
 
     conn.close()
