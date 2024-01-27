@@ -285,7 +285,14 @@ def RestricaoEngenharia(engenharia, obs, usuario, projecao):
 
         conn.close()
 
-        return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+        x , y = ConsultaCadastroItensCSW(engenharia)
+
+        if y == 0:
+
+            return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+        else:
+            return pd.DataFrame([{'MENSAGEM': f'erro na {engenharia} existe itens com situacao normal no AFV, verifique com o PCP'}])
+
     else:
         return pd.DataFrame([{'MENSAGEM': f'erro a Engenharia {engenharia} possui preço de venda no CSW, '
                                           f'solicite a retira dela da tabela de preços'}])
