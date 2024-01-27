@@ -225,13 +225,14 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
     conn = ConexaoPostgreMPL.conexao()  # Abra a conexão fora do loop
 
     for p in projecao:
+        ConsultaRestricoes(p)
         produtosPostgre_query = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                                 'where projecao = %s '
 
         produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
-        ConsultaRestricoes(p)
+
 
         if not produtosPostgre.empty:
             if produtos_concatenados is None:
