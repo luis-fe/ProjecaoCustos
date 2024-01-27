@@ -1,4 +1,5 @@
-import Service.produtos
+import Service.materiaPrimaService
+from Service import produtos, materiaPrimaService
 import pandas as pd
 from flask import Blueprint, jsonify, request
 from functools import wraps
@@ -26,6 +27,7 @@ def get_Produtos():
     marca = data.get('marca', '-')
     grupo = data.get('grupo','-')
     Service.produtos.IncrementarProdutos(projecao, empresa)
+    Service.materiaPrimaService.IncrementarProdutosMateriaPrima(projecao)
     Endereco_det = Service.produtos.ObterProdutosOficial(projecao, empresa, categoria,marca,grupo)
     # Obtém os nomes das colunas
     column_names = Endereco_det.columns
