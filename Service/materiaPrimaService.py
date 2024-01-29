@@ -161,6 +161,8 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
 def ResumirCustoSortimento(projecao):
     conn = ConexaoPostgreMPL.conexao()
 
+
+    result = None
     for p in projecao:
 
         consultaMP = pd.read_sql('select  projecao ,codengenharia, sortimento, grade, "custoTotal" from "Reposicao"."ProjCustos"."custoMP" c '
@@ -172,7 +174,8 @@ def ResumirCustoSortimento(projecao):
             'projecao':'first',
             'custoTotal':'sum'
         })
+        result = pd.concat([result, consultaMP])
 
     conn.close()
 
-    return consultaMP
+    return result
