@@ -166,7 +166,7 @@ def ResumirCustoSortimento(projecao):
         consultaMP = pd.read_sql('select  codengenharia, sortimento, grade, "custoTotal" from "Reposicao"."ProjCustos"."custoMP" c '
                                  'where c.projecao = %s ', conn, params=(p,))
 
-        consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(int)
+        consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(float)
 
         consultaMP['custoTotal'] = consultaMP.groupby(['codEngenharia, sortimento, grade']).aggregate({
             'custoTotal':'sum'
