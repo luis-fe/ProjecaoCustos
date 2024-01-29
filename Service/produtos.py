@@ -296,7 +296,6 @@ def RestricaoEngenharia(engenharia, obs, usuario, projecao):
             mensagem = []
             if y == 0:
                 mensagem.append(f'Engenharia {engenharia} excluida da projecao {projecao}')
-                return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
             else:
                 mensagem.append(f'erro na {engenharia} projecao {projecao} existe itens com situacao normal no AFV, verifique com o PCP')
 
