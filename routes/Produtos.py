@@ -64,12 +64,13 @@ def get_RetirarProduto():
         end_data.append(end_dict)
     return jsonify(end_data)
 
-@Produtos_routes.route('/api/ResumirSortimento', methods=['GET'])
+@Produtos_routes.route('/api/ResumirSortimento', methods=['POST'])
 @token_required
 def ResumirSortimento():
     # Obtém os dados do corpo da requisição (JSON)
+    data = request.get_json()
 
-    projecao = request.args.get('projecao', '-')
+    projecao = data.get('projecao', '-')
 
     Endereco_det = Service.materiaPrimaService.ResumirCustoSortimento(projecao)
     # Obtém os nomes das colunas
