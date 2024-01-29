@@ -172,6 +172,9 @@ def ResumirCustoSortimento(projecao):
 
         consultaMP= consultaMP.groupby(['codengenharia', 'projecao','sortimento', 'grade']).agg({
             'projecao':'first',
+            'codengenharia':'first',
+            'sortimento':'first',
+            'grade':'first',
             'custoTotal':'sum'
         })
         result = pd.concat([result, consultaMP])
