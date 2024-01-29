@@ -69,7 +69,6 @@ def get_RetirarProduto():
 def ResumirSortimento():
     # Obtém os dados do corpo da requisição (JSON)
     data = request.get_json()
-
     projecao = data.get('projecao', '-')
 
     Endereco_det = Service.materiaPrimaService.ResumirCustoSortimento(projecao)

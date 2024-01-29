@@ -164,7 +164,7 @@ def ResumirCustoSortimento(projecao):
     for p in projecao:
 
         consultaMP = pd.read_sql('select  codengenharia, sortimento, grade, custoTotal from "Reposicao"."ProjCustos"."custoMP" c '
-                                 'where c.projecao = %s ', conn, params=(p))
+                                 'where c.projecao = %s ', conn, params=(p,))
 
         consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(int)
 
