@@ -275,7 +275,7 @@ def RestricaoEngenharia(engenharia, obs, usuario, projecao):
     for p in projecao:
 
 
-        validarPreco = ConsultaPrecoCSW(engenharia, projecao)
+        validarPreco = ConsultaPrecoCSW(engenharia, p)
 
         if validarPreco == 'permite':
             conn = ConexaoPostgreMPL.conexao()
@@ -284,7 +284,7 @@ def RestricaoEngenharia(engenharia, obs, usuario, projecao):
                       '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
 
             cursor = conn.cursor()
-            cursor.execute(inserir, (engenharia, obs, usuario, projecao))
+            cursor.execute(inserir, (engenharia, obs, usuario, p))
             conn.commit()
             cursor.close()
             conn.close()
