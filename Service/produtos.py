@@ -272,33 +272,36 @@ def FuncaoFiltro(valores, dataframe, nomeColuna):
 def RestricaoEngenharia(engenharia, obs, usuario, projecao):
 
 
-    validarPreco = ConsultaPrecoCSW(engenharia, projecao)
+    for p in projecao:
 
-    if validarPreco == 'permite':
-        conn = ConexaoPostgreMPL.conexao()
 
-        inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
-                  '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
+        validarPreco = ConsultaPrecoCSW(engenharia, projecao)
 
-        cursor = conn.cursor()
-        cursor.execute(inserir, (engenharia, obs, usuario, projecao))
-        conn.commit()
-        cursor.close()
-        conn.close()
+        if validarPreco == 'permite':
+            conn = ConexaoPostgreMPL.conexao()
 
-        conn.close()
+            inserir = 'insert into "Reposicao"."ProjCustos".restricaoengenharia ' \
+                      '(codengenharia, obs, usuario, projecao) values (%s , %s , %s , %s )'
 
-        x , y = ConsultaCadastroItensCSW(engenharia)
+            cursor = conn.cursor()
+            cursor.execute(inserir, (engenharia, obs, usuario, projecao))
+            conn.commit()
+            cursor.close()
+            conn.close()
 
-        if y == 0:
+            conn.close()
 
-            return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+            x , y = ConsultaCadastroItensCSW(engenharia)
+
+            if y == 0:
+
+                return pd.DataFrame([{'MENSAGEM':f'Engenharia {engenharia} excluida da projecao'}])
+            else:
+                return pd.DataFrame([{'MENSAGEM': f'erro na {engenharia} existe itens com situacao normal no AFV, verifique com o PCP'}])
+
         else:
-            return pd.DataFrame([{'MENSAGEM': f'erro na {engenharia} existe itens com situacao normal no AFV, verifique com o PCP'}])
-
-    else:
-        return pd.DataFrame([{'MENSAGEM': f'erro a Engenharia {engenharia} possui preço de venda no CSW, '
-                                          f'solicite a retira dela da tabela de preços'}])
+            return pd.DataFrame([{'MENSAGEM': f'erro a Engenharia {engenharia} possui preço de venda no CSW, '
+                                              f'solicite a retira dela da tabela de preços'}])
 
 def ConsultaCadastroItensCSW(engenharia):
 
