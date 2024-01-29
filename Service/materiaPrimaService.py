@@ -133,7 +133,10 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     cursor.close()
 
                     ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
-                    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
+                    if not ObeterProdutos.empty:
+                        ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
+                    else:
+                        print(f'vazio empresa {e}')
             conn.close()
 
 
