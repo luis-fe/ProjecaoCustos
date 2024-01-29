@@ -120,7 +120,7 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     cursor.execute(delete, (p,))
                     conn.commit()
                     cursor.close()
-                    conn.close()
+
                     ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
                     ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
 
@@ -131,10 +131,10 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     cursor.execute(delete, (p,e,))
                     conn.commit()
                     cursor.close()
-                    conn.close()
+
                     ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
                     ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
-
+            conn.close()
 
 
 
