@@ -168,7 +168,7 @@ def ResumirCustoSortimento(projecao):
 
         consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(float)
 
-        consultaMP['custoTotal'] = consultaMP.groupby(('codEngenharia, sortimento, grade')).agg({
+        consultaMP['custoTotal'] = consultaMP.groupby(['codEngenharia, sortimento, grade']).agg({
             'custoTotal':'sum'
         })
 
