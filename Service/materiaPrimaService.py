@@ -4,7 +4,7 @@ import ConexaoPostgreMPL
 import pandas as pd
 
 
-def ConsultaProjecaoMPCsw(projecao ,empresa = ['-']):
+def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
 
     conn = ConexaoCSW.Conexao()
 
@@ -14,31 +14,75 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = ['-']):
 
 
     if 'ALT' in projecao:
-
-        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        if empresa == 'FILIAL':
+         consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and codempresa = 4"
+        elif empresa == 'MATRIZ':
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%' and codempresa = 1"
+        else:
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%'"
 
 
-    elif 'VER' in projecao:
 
-        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+    elif 'INVER' in projecao:
+
+        if empresa == 'FILIAL':
+         consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VE%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVE%' and codempresa = 4"
+        elif empresa == 'MATRIZ':
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and codempresa = 1"
+        else:
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%'"
     else:
-
-        consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
+        if empresa == 'FILIAL':
+         consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVER%'"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VERA%' and codempresa = 4"
+        elif empresa == 'MATRIZ':
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and codempresa = 1"
+        else:
+            consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, codInsumo, ' \
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
+                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
+                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
+                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%'"
 
     ESTOQUE = 'SELECT codItem as codInsumo ,estoqueAtual ,precoMedio  FROM est.DadosEstoque d WHERE d.codNatureza in (1, 2) and estoqueAtual > 0'
 
@@ -65,25 +109,37 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
             print(f'colecao {p} ja Iniciou vendas')
         else:
 
-            if empresa == '-':
+            for e in empresa:
+                if empresa == '-':
 
-                delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
-                     ' where projecao = %s '
-            else:
-                delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
-                     ' where projecao = %s and empresa = %s '
+                    delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
+                         ' where projecao = %s '
+                    cursor = conn.cursor()
+                    cursor.execute(delete, (p,))
+                    conn.commit()
+                    cursor.close()
+                    conn.close()
+                    ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
+                    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
+
+                else:
+                    delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
+                         ' where projecao = %s and empresa = %s '
+                    cursor = conn.cursor()
+                    cursor.execute(delete, (p,e,))
+                    conn.commit()
+                    cursor.close()
+                    conn.close()
+                    ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
+                    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
 
 
-            cursor = conn.cursor()
-            cursor.execute(delete,(p,))
-            conn.commit()
-            cursor.close()
-            conn.close()
 
 
 
 
-            ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
-            ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos,ObeterProdutos.size,'custoMP','append')
+
+
+
 
 
