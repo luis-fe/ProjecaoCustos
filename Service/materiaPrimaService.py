@@ -80,7 +80,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento" \
-                       ' codInsumo, '\   
+                       ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
                        'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
