@@ -111,7 +111,7 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
         else:
 
             for e in empresa:
-                if empresa == '-':
+                if e == '-':
 
                     delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
                          ' where projecao = %s '
@@ -120,7 +120,7 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     conn.commit()
                     cursor.close()
                     conn.close()
-                    ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
+                    ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
                     ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
 
                 else:
@@ -131,7 +131,7 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     conn.commit()
                     cursor.close()
                     conn.close()
-                    ObeterProdutos = ConsultaProjecaoMPCsw(p, empresa)
+                    ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
                     ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
 
 
