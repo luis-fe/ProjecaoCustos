@@ -255,8 +255,8 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtos_concatenados = FuncaoFiltro(marca, produtos_concatenados, 'marca')
         produtos_concatenados = FuncaoFiltro(grupo, produtos_concatenados, 'grupo')
         resumoCusto = materiaPrimaService.ResumirCustoSortimento(projecao)
-        resumoCusto.drop(['projecao', 'repeticao'], axis=1, inplace=True)
-        produtos_concatenados = pd.merge(produtos_concatenados,resumoCusto,on=['codengenharia','grade','criterio'],how='left')
+        resumoCusto.drop('repeticao', axis=1, inplace=True)
+        produtos_concatenados = pd.merge(produtos_concatenados,resumoCusto,on=['projecao','codengenharia','grade','criterio'],how='left')
 
 
         return produtos_concatenados
