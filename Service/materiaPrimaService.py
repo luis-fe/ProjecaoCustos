@@ -1,19 +1,20 @@
+### NESSE ARQUIVO ESTÁ PRESENTE AS REGRAS DE MODELAGEM PARA OBTER OS CUSTOS DETALHADOS DE MATÉRIA PRIMA DAS ENGENHARIAS PROJETADAS
+
+# Bibliotecas:
 import pandas
 import ConexaoCSW
 import ConexaoPostgreMPL
 import pandas as pd
 import locale
 
+
 def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
-
-    conn = ConexaoCSW.Conexao()
-
-    ano = projecao[-2:]
-    ano = "'%"+ano+"%'"
+    conn = ConexaoCSW.Conexao() # Abre a conexao com o Csw
+    ano = projecao[-2:] # Obtem o ano da PROJECAO
+    ano = "'%"+ano+"%'"# Transforma o ano para utilizar no LIKE do sql
 
 
-
-    if 'ALT' in projecao:
+    if 'ALT' in projecao: # Caso a Projecao contenha ALT de ALTO VERAO, realiza as consultas com clausuar "ALT VERAO"
         if empresa == 'FILIAL':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
