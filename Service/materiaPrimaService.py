@@ -2,7 +2,7 @@ import pandas
 import ConexaoCSW
 import ConexaoPostgreMPL
 import pandas as pd
-
+import locale
 
 def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
 
