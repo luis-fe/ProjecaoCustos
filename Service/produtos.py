@@ -258,7 +258,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         resumoCusto.drop('repeticao', axis=1, inplace=True)
         produtos_concatenados = pd.merge(produtos_concatenados,resumoCusto,on=['projecao','codengenharia','grade','criterio'],how='left')
 
-
+        produtos_concatenados.fillna('-',inplace=True)
         return produtos_concatenados
 
 
