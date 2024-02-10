@@ -233,16 +233,9 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtosPostgre_query = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                                 'where projecao = %s '
 
-        resumoCusto = materiaPrimaService.ResumirCustoSortimento(p)
-
-        resumoCusto.drop(['projecao','repeticao'],axis=1,inplace=True)
-
-
-
         produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
-        produtosPostgre = pd.merge(produtosPostgre,resumoCusto,on=['codengenharia','grade','criterio'],how='left')
 
 
         if not produtosPostgre.empty:
@@ -250,6 +243,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
                 produtos_concatenados = produtosPostgre.copy()
             else:
                 produtos_concatenados = pd.concat([produtos_concatenados, produtosPostgre], ignore_index=True)
+
 
     conn.close()# Fechar a conexao fora do loop
 
@@ -261,6 +255,9 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtos_concatenados = FuncaoFiltro(categoria, produtos_concatenados, 'categoria')
         produtos_concatenados = FuncaoFiltro(marca, produtos_concatenados, 'marca')
         produtos_concatenados = FuncaoFiltro(grupo, produtos_concatenados, 'grupo')
+        resumoCusto = materiaPrimaService.ResumirCustoSortimento(p)
+        resumoCusto.drop(['projecao', 'repeticao'], axis=1, inplace=True)
+        produtos_concatenados = pd.merge(produtos_concatenados,resumoCusto,on=['codengenharia','grade','criterio'],how='left')
 
 
         return produtos_concatenados
