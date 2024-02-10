@@ -233,16 +233,16 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         produtosPostgre_query = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                                 'where projecao = %s '
 
-        resumoCusto = materiaPrimaService.ResumirCustoSortimento(p)
+        #resumoCusto = materiaPrimaService.ResumirCustoSortimento(p)
 
-        resumoCusto.drop(['projecao','repeticao'],axis=1,inplace=True)
+        #resumoCusto.drop(['projecao','repeticao'],axis=1,inplace=True)
 
 
 
         produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
         produtosPostgre.fillna('-', inplace=True)
-        produtosPostgre = pd.merge(produtosPostgre,resumoCusto,on=['codengenharia','grade','criterio'],how='left')
+        #produtosPostgre = pd.merge(produtosPostgre,resumoCusto,on=['codengenharia','grade','criterio'],how='left')
 
 
         if not produtosPostgre.empty:
