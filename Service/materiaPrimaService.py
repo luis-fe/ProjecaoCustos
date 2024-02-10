@@ -182,7 +182,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
 
     consulta['repeticao']=consulta.groupby(['codengenharia','codsortimento','codInsumo','grade','consumo']).cumcount() + 1
 
-
+    consulta = consulta[consulta['repeticao'] != 2]
     return consulta
 
 def IncrementarProdutosMateriaPrima(projecao, empresa):
