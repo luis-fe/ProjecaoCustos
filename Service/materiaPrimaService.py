@@ -232,7 +232,7 @@ def ResumirCustoSortimento(projecao):
 
     result = None
     for p in projecao:
-        like = "'"+"0%"+"'"
+        like = "'"+"%0%"+"'"
         consultaMP = pd.read_sql('select  projecao ,codengenharia, sortimento, grade, "custoTotal" from "Reposicao"."ProjCustos"."custoMP" c '
                                  "where c.projecao = %s and codengenharia like %s ", conn, params=(p,like,))
 
