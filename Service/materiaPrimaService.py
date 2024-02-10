@@ -249,7 +249,7 @@ def ResumirCustoSortimento(projecao):
     def format_with_separator(value):
             return locale.format('%0.2f', value, grouping=True)
 
-    result = result.sort_values(by='custoTotal', ascending=False,
+    result = result.sort_values(by=['codengenharia','custoTotal'], ascending=False,
                         ignore_index=True)  # escolher como deseja classificar
 
     result['custoTotal'] = result['custoTotal'].apply(format_with_separator)
@@ -258,3 +258,13 @@ def ResumirCustoSortimento(projecao):
     conn.close()
 
     return result
+
+
+def detalharCusto(codengenharia, projecao, grade):
+    conn = ConexaoPostgreMPL.conexao()
+
+    detalharCusto = ''
+
+    conn.close()
+
+
