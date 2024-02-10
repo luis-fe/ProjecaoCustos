@@ -178,6 +178,11 @@ def ResumirCustoSortimento(projecao):
             'custoTotal':'sum'
         })
         result = pd.concat([result, consultaMP])
+    def format_with_separator_0(value):
+            return locale.format('%0.0f', value, grouping=True)
+
+    result['custoTotal'] = result['custoTotal'].apply(format_with_separator)
+
 
     conn.close()
 
