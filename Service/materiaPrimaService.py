@@ -234,7 +234,7 @@ def ResumirCustoSortimento(projecao):
     for p in projecao:
 
         consultaMP = pd.read_sql('select  projecao ,codengenharia, sortimento, grade, "custoTotal" from "Reposicao"."ProjCustos"."custoMP" c '
-                                 'where c.projecao = %s ', conn, params=(p,))
+                                 "where c.projecao = %s and codengenharia not like '6%' ", conn, params=(p,))
 
         consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(float)
 
@@ -245,10 +245,11 @@ def ResumirCustoSortimento(projecao):
     def format_with_separator(value):
             return locale.format('%0.2f', value, grouping=True)
 
-    result = result.sort_values(by=['codengenharia','custoTotal'], ascending=False,
+    result = result.sort_values(by=['codengenharia','grade','custoTotal'], ascending=False,
                         ignore_index=True)  # escolher como deseja classificar
 
     result['custoTotal'] = result['custoTotal'].apply(format_with_separator)
+
 
 
     conn.close()
