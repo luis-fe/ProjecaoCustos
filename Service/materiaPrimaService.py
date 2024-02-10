@@ -254,6 +254,7 @@ def ResumirCustoSortimento(projecao):
     conn.close()
     result['repeticao']=result.groupby(['codengenharia','grade']).cumcount() + 1
 
+    result['regra'] = result.apply(lambda row: 'MaiorCor' if row['repeticao']== 1 else '-',axis=1 )
     return result
 
 
