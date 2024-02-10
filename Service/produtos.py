@@ -1,7 +1,7 @@
 import pandas as pd
 import ConexaoPostgreMPL
 import ConexaoCSW
-import materiaPrimaService
+from Service import materiaPrimaService
 ## Nesse arquivo.py está a modelagem referente aos produtos projetados na PROJECAO DE CUSTOS
 
 def ProdutosCsw(projecao, empresa):
