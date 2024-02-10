@@ -253,7 +253,7 @@ def ResumirCustoSortimento(projecao):
 
 
     conn.close()
-
+    print(like)
     return result
 
 
