@@ -16,7 +16,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
     if 'ALT' in projecao:
         if empresa == 'FILIAL':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
@@ -25,7 +25,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and v.codempresa = 4"
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
@@ -34,7 +34,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%' and v.codempresa = 1"
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
@@ -48,7 +48,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
 
         if empresa == 'FILIAL':
          consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                    "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                    "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                     ' codInsumo, '\
                 '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
@@ -57,7 +57,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVE%' and v.codempresa = 4"
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, ' \
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
@@ -66,7 +66,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and v.codempresa = 1"
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
@@ -76,7 +76,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
     else:
         if empresa == 'FILIAL':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
@@ -85,7 +85,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VERA%' and v.codempresa = 4"
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
@@ -94,7 +94,7 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and v.codempresa = 1"
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
-                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto) as sortimento," \
+                       "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
                        '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
