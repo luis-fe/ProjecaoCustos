@@ -249,7 +249,7 @@ def ResumirCustoSortimento(projecao):
     def format_with_separator(value):
             return locale.format('%0.2f', value, grouping=True)
 
-    result = result.sort_values(by=['sortimento','custoTotal'], ascending=False,
+    result = result.sort_values(by={'sortimento','custoTotal'}, ascending=False,
                         ignore_index=True)  # escolher como deseja classificar
 
     result['custoTotal'] = result['custoTotal'].apply(format_with_separator)
