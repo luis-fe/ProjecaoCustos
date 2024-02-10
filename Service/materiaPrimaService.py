@@ -7,7 +7,7 @@ import ConexaoPostgreMPL
 import pandas as pd
 import locale
 
-
+# Passo 1: Funcao para Consuntar no CSW os custos das materias primas vinculadas as engenharias da PROJECAO:
 def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
     conn = ConexaoCSW.Conexao() # Abre a conexao com o Csw
     ano = projecao[-2:] # Obtem o ano da PROJECAO
