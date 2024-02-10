@@ -255,6 +255,10 @@ def ResumirCustoSortimento(projecao):
     result['repeticao']=result.groupby(['codengenharia','grade']).cumcount() + 1
 
     result['regra'] = result.apply(lambda row: 'MaiorCor' if row['repeticao']== 1 else '-',axis=1 )
+
+    result['grade'] = result.apply(
+        lambda row: obterGrade(row['grade']), axis=1)
+
     return result
 
 
@@ -264,3 +268,10 @@ def detalharCusto(codengenharia, projecao, grade):
     detalharCusto = ''
 
     conn.close()
+
+
+def obterGrade(grade):
+    if grade in [6,14,16,17,23,24,25,27,28,36,37,40,41,58]:
+        return 'FILHO'
+    else:
+        return 'PAI'
