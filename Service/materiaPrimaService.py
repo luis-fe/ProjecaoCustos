@@ -180,6 +180,8 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
     consulta['empresa'] = consulta['empresa'].astype(str)
     consulta['empresa'] = consulta.apply(lambda row: 'MATRIZ' if row['empresa'] == '1' else 'FILIAL', axis=1)
 
+    consulta['repeticao']=consulta.groupby(['codengenharia','codsortimento','codInsumo','grade','consumo']).cumcount() + 1
+
 
     return consulta
 
