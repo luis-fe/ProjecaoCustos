@@ -2,10 +2,10 @@ import pandas as pd
 import ConexaoPostgreMPL
 import ConexaoCSW
 
-
+## Nesse arquivo.py está a modelagem referente aos produtos projetados na PROJECAO DE CUSTOS
 
 def ProdutosCsw(projecao, empresa):
-    conn = ConexaoCSW.Conexao()
+    conn = ConexaoCSW.Conexao() # Abrindo a COnexao com o CSW
 
     ano = projecao[-2:]
     ano = "'%"+ano+"%'"
@@ -131,6 +131,7 @@ def ProdutosCsw(projecao, empresa):
     produtos_['empresa'] = produtos_.apply(lambda row: ObetendoEmpresa(row['codengenharia']), axis=1)
     produtos_['grupo'] = produtos_.apply(lambda  row: obterGrupo(row['descricao']),axis=1)
     produtos_['estrategia'] = produtos_.apply(lambda  row: obterEstrategia(row['descricao']),axis=1)
+    produtos_['criterio'] ='MaiorCor'
 
 
     return produtos_
