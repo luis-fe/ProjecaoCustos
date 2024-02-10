@@ -22,16 +22,34 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and v.codempresa = 4"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and v.codempresa = 4 "\
+                "union " \
+                " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                " FROM CusTex_Tpc.CProdCompPad p " \
+                                                   " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                                                   " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                                                   " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                                                   " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and p.codempresa = 4 "
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
                        ' codInsumo, '\
-                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, ' \
-                       'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
-                       'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
-                       'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
-                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%' and v.codempresa = 1"
+                       '(select i.nome from cgi.item i where i.codigo = V.codInsumo) as descricao_MP, '\
+                'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
+                'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
+                'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and v.codempresa = 1 "\
+                "union " \
+                " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                " FROM CusTex_Tpc.CProdCompPad p " \
+                                                   " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                                                   " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                                                   " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                                                   " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%ALTO VE%' and p.codempresa = 1 "
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
@@ -54,7 +72,16 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVE%' and v.codempresa = 4"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%INVE%' and v.codempresa = 4" \
+                                                   "union " \
+                " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                " FROM CusTex_Tpc.CProdCompPad p " \
+                " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVE%' and p.codempresa = 4 "
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
@@ -63,7 +90,16 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
                        'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
                        'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
-                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and v.codempresa = 1"
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and v.codempresa = 1 " \
+                                                              "union " \
+                       " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                       "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                       " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                       " FROM CusTex_Tpc.CProdCompPad p " \
+                       " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                       " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                       " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVE%' and p.codempresa = 1"
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
@@ -82,7 +118,16 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                 'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal '\
                 'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC '\
                 'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj '\
-                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VERA%' and v.codempresa = 4"
+                " WHERE tc.descProjecao like "+ano+" and tc.descProjecao like '%VERA%' and v.codempresa = 4 " \
+                                                   "union " \
+                                                   " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                                                   "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                    " FROM CusTex_Tpc.CProdCompPad p " \
+                    " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                    " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                     " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                  " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and p.codempresa = 4 "
         elif empresa == 'MATRIZ':
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
@@ -91,7 +136,17 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
                        'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
                        'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
-                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and v.codempresa = 1"
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and v.codempresa = 1 "\
+            "union " \
+            " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+            "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+            " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+            " FROM CusTex_Tpc.CProdCompPad p " \
+            " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+            " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+            " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+            " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and p.codempresa = 1 "
+
         else:
             consulta = 'SELECT V.codempresa as empresa, V.codProduto as codengenharia, codSortimento as codsortimento, ' \
                        "(select s.corbase ||'-'||s.descricao from tcp.sortimentosproduto s where s.codempresa = 1 and s.codProduto = v.codproduto and v.codSortimento = codSortimento ) as sortimento," \
@@ -100,7 +155,17 @@ def ConsultaProjecaoMPCsw(projecao ,empresa = '-'):
                        'codGrade AS grade, qtdeGrade as consumo, v.custoUnit, v.custoTotal ' \
                        'FROM CusTex_Tpc.CProdInsVar V INNER JOIN CusTex_Tpc.CProdCapa TC ' \
                        'ON TC.codEmpresa = V.codEmpresa AND TC.numeroProj = V.numeroProj ' \
-                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%'"
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%'" \
+                        "union " \
+                        " select p.codempresa as empresa, p.codProduto as codengenharia, s.codSortimento as codsortimento, " \
+                        "s.corbase ||'-'||s.descricao as sortimento, p.codCompPad as codInsumo, " \
+                        " (select i.nome from cgi.item i where i.codigo = p.codCompPad) as descricao_MP, g.codGrade as grade, p.qtdeUnit as consumo, p.custoUnit , (p.custoUnit * p.qtdeUnit) as custoTotal " \
+                        " FROM CusTex_Tpc.CProdCompPad p " \
+                        " inner join tcp.sortimentosproduto s on s.codempresa = 1 and s.codProduto = p.codproduto " \
+                        " inner join tcp.GradesEngenharia g on g.Empresa = 1 and g.codEngenharia = p.codProduto  " \
+                        " inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj " \
+                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%'  "
+
 
     ESTOQUE = 'SELECT codItem as codInsumo ,estoqueAtual ,precoMedio  FROM est.DadosEstoque d WHERE d.codNatureza in (1, 2) and estoqueAtual > 0'
 
