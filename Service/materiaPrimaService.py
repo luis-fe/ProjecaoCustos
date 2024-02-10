@@ -252,7 +252,7 @@ def ResumirCustoSortimento(projecao):
 
 
     conn.close()
-    result['repeticao']=consulta.groupby(['codengenharia','grade','sortimento','grade']).cumcount() + 1
+    result['repeticao']=result.groupby(['codengenharia','grade','sortimento','grade']).cumcount() + 1
 
     return result
 
