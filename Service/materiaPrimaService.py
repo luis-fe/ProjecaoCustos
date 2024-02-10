@@ -239,11 +239,8 @@ def ResumirCustoSortimento(projecao):
         consultaMP['custoTotal'] = consultaMP['custoTotal'].astype(float)
 
         consultaMP= consultaMP.groupby(['codengenharia', 'projecao','sortimento', 'grade']).agg({
-            'projecao':'first',
-            'sortimento':'first',
-            'grade':'first',
             'custoTotal':'sum'
-        }, index=True)
+        }).reset_index()
         result = pd.concat([result, consultaMP])
     def format_with_separator(value):
             return locale.format('%0.2f', value, grouping=True)
