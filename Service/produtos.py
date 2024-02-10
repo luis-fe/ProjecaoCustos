@@ -1,7 +1,7 @@
 import pandas as pd
 import ConexaoPostgreMPL
 import ConexaoCSW
-
+import materiaPrimaService
 ## Nesse arquivo.py está a modelagem referente aos produtos projetados na PROJECAO DE CUSTOS
 
 def ProdutosCsw(projecao, empresa):
@@ -220,8 +220,11 @@ def Categoria(contem, valorReferencia, valorNovo, categoria):
     else:
         return categoria
 
+
+
+# Funcao utilizada Para Listar os Produtos com os filtros selecidonados
 def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
-    produtos_concatenados = None  # Inicialize como None
+    produtos_concatenados = None  # Inicialize como None o data frame
 
     conn = ConexaoPostgreMPL.conexao()  # Abra a conexão fora do loop
 
@@ -229,6 +232,10 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
         ConsultaRestricoes(p)
         produtosPostgre_query = 'select * from "Reposicao"."ProjCustos".produtos p ' \
                                 'where projecao = %s '
+
+        resumoCusto = materiaPrimaService.ResumirCustoSortimento(p)
+
+        resumoCusto.drop(['projecao','repeticao'],axis=1,inplace=True)
 
         produtosPostgre = pd.read_sql(produtosPostgre_query, conn, params=(p,))
         produtosPostgre['situacaocusto'].fillna('Não Calculado', inplace=True)
@@ -241,7 +248,7 @@ def ObterProdutosOficial(projecao, empresa, categoria, marca, grupo):
             else:
                 produtos_concatenados = pd.concat([produtos_concatenados, produtosPostgre], ignore_index=True)
 
-    conn.close()
+    conn.close()# Fechar a conexao fora do loop
 
     if produtos_concatenados is None:
         print('Nenhum dado encontrado')
