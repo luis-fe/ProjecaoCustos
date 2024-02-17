@@ -296,7 +296,7 @@ def ProcessosProdutos(projecao ,empresa = '-'):
 
     return consulta
 
-
+ProcessosProdutos('INVERNO 2024', 'MATRIZ')
 
 def IncrementarProdutosMateriaPrima(projecao, empresa):
 
@@ -321,10 +321,10 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     cursor.close()
 
                     ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
-                    ObeterProdutosProcessos = ProcessosProdutos(p, e)
+                    #ObeterProdutosProcessos = ProcessosProdutos(p, e)
 
                     ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
-                    ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutosProcessos, ObeterProdutosProcessos.size, 'custoprocesso', 'append')
+                    #ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutosProcessos, ObeterProdutosProcessos.size, 'custoprocesso', 'append')
 
                 else:
                     delete = 'delete from "Reposicao"."ProjCustos"."custoMP" ' \
@@ -335,10 +335,10 @@ def IncrementarProdutosMateriaPrima(projecao, empresa):
                     cursor.close()
 
                     ObeterProdutos = ConsultaProjecaoMPCsw(p, e)
-                    ObeterProdutosProcessos = ProcessosProdutos(p, e)
+                    #ObeterProdutosProcessos = ProcessosProdutos(p, e)
                     if not ObeterProdutos.empty:
                         ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutos, ObeterProdutos.size, 'custoMP', 'append')
-                        ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutosProcessos, ObeterProdutosProcessos.size, 'custoprocesso', 'append')
+                     #   ConexaoPostgreMPL.Funcao_Inserir(ObeterProdutosProcessos, ObeterProdutosProcessos.size, 'custoprocesso', 'append')
                     else:
                         print(f'vazio empresa {e}')
             conn.close()
