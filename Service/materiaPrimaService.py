@@ -260,7 +260,7 @@ def ProcessosProdutos(projecao ,empresa = '-'):
             consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
-                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER' and p.codempresa = 1 "
+                       " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and p.codempresa = 1 "
         else:
 
             consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
