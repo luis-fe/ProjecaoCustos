@@ -227,20 +227,20 @@ def ProcessosProdutos(projecao ,empresa = '-'):
         if empresa == 'FILIAL':
 
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%' and p.codempresa = 4 "
 
         elif empresa == 'MATRIZ':
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%' and p.codempresa = 1 "
         else:
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%ALTO VE%'"
@@ -250,20 +250,20 @@ def ProcessosProdutos(projecao ,empresa = '-'):
         if empresa == 'FILIAL':
 
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%' and p.codempresa = 4 "
 
         elif empresa == 'MATRIZ':
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER' and p.codempresa = 1 "
         else:
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%INVER%'"
@@ -272,26 +272,26 @@ def ProcessosProdutos(projecao ,empresa = '-'):
         if empresa == 'FILIAL':
 
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%' and p.codempresa = 4 "
 
         elif empresa == 'MATRIZ':
 
-            consulta = 'SELECT p.codempresa as empresa, codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA' and p.codempresa = 1 "
         else:
             print('x')
-    consultaTeste = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , ' \
+            consulta = 'SELECT p.codempresa as empresa, p.codproduto as codengenharia, p.codGrade as codgrade , e.codFase as codfase , ' \
                     'e.nomeFase as nomefase  , p.tempoUnitCus as tempo , p.custoProc as custo, p.unidade, e.percEficiencia as eficiencia  from CusTex_Tpc.CProdOper p ' \
                        'inner join CusTex_Tpc.CProdCapa TC on TC.codEmpresa = p.codEmpresa and TC.numeroProj = P.numeroProj ' \
                        'inner join tcp.ProcessosEngenharia e on e.codEmpresa = p.codEmpresa and e.codEngenharia = p.codProduto and e.seqProcesso = p.codSeqOper ' \
                        " WHERE tc.descProjecao like " + ano + " and tc.descProjecao like '%VERA%'"
 
-    consulta = pd.read_sql(consultaTeste, conn)
+    consulta = pd.read_sql(consulta, conn)
 
     conn.close()
 
