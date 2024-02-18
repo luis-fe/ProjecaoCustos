@@ -296,8 +296,8 @@ def ProcessosProdutos(projecao ,empresa = '-'):
 
     return consulta
 
-X = ProcessosProdutos('INVERNO 2024', 'MATRIZ')
-print(X)
+#X = ProcessosProdutos('INVERNO 2024', 'MATRIZ')
+#print(X)
 def IncrementarProdutosMateriaPrima(projecao, empresa):
 
     for p in projecao:
